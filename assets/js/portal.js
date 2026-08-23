@@ -37,7 +37,7 @@
   const params = new URLSearchParams(location.search);
   if (params.get("acesso") === "necessario") {
     mostrarErro("Sua sessão expirou ou você ainda não entrou. Faça login para continuar.");
-    setTimeout(function () { document.getElementById("acesso").scrollIntoView({ behavior: "smooth" }); }, 250);
+    setTimeout(function () { document.getElementById("acesso").scrollIntoView({ behavior: "smooth" }); }, 700);
   }
 
   /* --------------------------------------------------- Sessao ja iniciada */
@@ -241,4 +241,73 @@
   } else {
     numeros.forEach(el => { el.textContent = el.dataset.contar; });
   }
+})();
+
+/* ==========================================================================
+   Cortina de abertura da página inicial.
+   ========================================================================== */
+(function () {
+  "use strict";
+
+  const cortina = document.getElementById("cortina");
+  if (!cortina) return;
+
+  const reduzir = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  // Quem chegou aqui redirecionado de uma página interna quer entrar, não
+  // assistir à abertura.
+  const veioDeRedirecionamento = new URLSearchParams(location.search).get("acesso") === "necessario";
+
+  document.documentElement.classList.add("cortina-ativa");
+
+  /** Quebra a palavra em letras animadas, cada uma com o seu atraso. */
+  function montarPalavra(el, palavra, deslocamento) {
+    if (!el) return;
+    el.innerHTML = palavra.split("").map(function (c, i) {
+      return '<span class="letra" style="--i:' + (i + deslocamento) + '">' +
+        (c === " " ? "&nbsp;" : c) + "</span>";
+    }).join("");
+  }
+
+  function soltarMotes() {
+    const caixa = document.getElementById("abParticulas");
+    if (!caixa || reduzir) return;
+    for (let i = 0; i < 18; i++) {
+      const m = document.createElement("span");
+      m.className = "mote";
+      const tam = 3 + Math.random() * 7;
+      m.style.cssText =
+        "left:" + (Math.random() * 100) + "%;" +
+        "width:" + tam + "px;height:" + tam + "px;" +
+        "--dur:" + (5 + Math.random() * 5).toFixed(1) + "s;" +
+        "--atraso:" + (Math.random() * 4).toFixed(1) + "s;" +
+        "--deriva:" + ((Math.random() - 0.5) * 120).toFixed(0) + "px";
+      caixa.appendChild(m);
+    }
+  }
+
+  let encerrada = false;
+  function encerrar() {
+    if (encerrada) return;
+    encerrada = true;
+    cortina.classList.add("saiu");
+    document.documentElement.classList.remove("cortina-ativa");
+    setTimeout(function () { cortina.remove(); }, 800);
+  }
+
+  montarPalavra(document.getElementById("abPalavra1"), "Portal", 0);
+  montarPalavra(document.getElementById("abPalavra2"), "Ômega", 6);
+  soltarMotes();
+
+  const btnPular = document.getElementById("abPular");
+  if (btnPular) btnPular.addEventListener("click", encerrar);
+  cortina.addEventListener("click", encerrar);
+  document.addEventListener("keydown", function aoTeclar(e) {
+    if (e.key === "Escape" || e.key === "Enter" || e.key === " ") {
+      encerrar();
+      document.removeEventListener("keydown", aoTeclar);
+    }
+  });
+
+  setTimeout(encerrar, veioDeRedirecionamento ? 200 : (reduzir ? 400 : 2700));
 })();

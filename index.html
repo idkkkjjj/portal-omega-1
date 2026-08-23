@@ -16,6 +16,27 @@
 </head>
 <body class="portal">
 
+<!-- ═══════════ ABERTURA ═══════════ -->
+<div id="cortina" class="cortina-abertura" role="presentation">
+  <div class="cortina-brilho" aria-hidden="true"></div>
+  <div class="cortina-particulas" id="abParticulas" aria-hidden="true"></div>
+  <div class="cortina-miolo">
+    <svg class="cortina-marca" viewBox="0 0 64 64" fill="none" aria-hidden="true">
+      <ellipse class="ab-elipse" cx="32" cy="34" rx="27" ry="14.5" transform="rotate(-14 32 34)"
+               pathLength="100" stroke="#f6b100" stroke-width="5"/>
+      <path class="ab-omega" d="M22 41h7v-3a10.5 10.5 0 1 1 6 0v3h7"
+            pathLength="100" stroke="#ffffff" stroke-width="4.6"
+            stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+    <h1 class="cortina-titulo" aria-label="Portal Ômega">
+      <span class="ab-palavra" id="abPalavra1"></span>
+      <span class="ab-palavra ab-palavra-2" id="abPalavra2"></span>
+    </h1>
+    <p class="cortina-sub">Colégio Ômega · Aracaju/SE</p>
+    <button class="cortina-pular" id="abPular" type="button">pular &rarr;</button>
+  </div>
+</div>
+
 <header class="topo-portal">
   <div class="envelope">
     <a class="marca-portal" href="index.html">

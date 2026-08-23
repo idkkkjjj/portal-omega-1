@@ -311,3 +311,116 @@ html.anim .rev.vis:hover { transform: translateY(-3px); }
 .btn { transition: background-color .13s, border-color .13s, color .13s, box-shadow .18s, transform .13s; }
 .btn-principal:hover, .btn-g:hover { transform: translateY(-1px); }
 .nav-portal a { position: relative; }
+
+/* ==========================================================================
+   Cortina de abertura — só na página inicial.
+   Some sozinha por CSS caso o JavaScript falhe, e nunca prende a navegação.
+   ========================================================================== */
+.cortina-abertura {
+  position: fixed; inset: 0; z-index: 500;
+  background: #17181c;
+  display: grid; place-items: center;
+  overflow: hidden;
+  transition: transform .7s cubic-bezier(.7, 0, .3, 1), opacity .7s ease;
+}
+.cortina-abertura.saiu { transform: translateY(-100%); opacity: .25; pointer-events: none; }
+
+/* Plano B: se o JS não rodar, a cortina se retira sozinha aos 4,2 s */
+.cortina-abertura { animation: cortinaSaiSozinha .7s ease 4.2s forwards; }
+@keyframes cortinaSaiSozinha {
+  to { transform: translateY(-100%); opacity: 0; visibility: hidden; }
+}
+
+.cortina-brilho {
+  position: absolute; inset: 0;
+  background: radial-gradient(620px 420px at 50% 42%, rgba(246,177,0,.16), transparent 70%);
+  opacity: 0; animation: brilhoEntra 1.4s ease .2s forwards;
+}
+@keyframes brilhoEntra { to { opacity: 1; } }
+
+.cortina-miolo { text-align: center; padding: 1rem; position: relative; z-index: 2; }
+
+/* A marca se desenha: primeiro a elipse amarela, depois o Ômega */
+.cortina-marca {
+  width: min(150px, 34vw); height: auto; margin: 0 auto 22px; display: block;
+  filter: drop-shadow(0 10px 34px rgba(246,177,0,.28));
+}
+.cortina-marca .ab-elipse,
+.cortina-marca .ab-omega {
+  stroke-dashoffset: 100;
+  animation: traçarMarca .9s cubic-bezier(.4,0,.2,1) forwards;
+}
+.cortina-marca .ab-omega  { stroke-dasharray: 100; }
+/* A elipse é fechada: 1 unidade de sobreposição esconde a emenda do traço. */
+.cortina-marca .ab-elipse { stroke-dasharray: 101; }
+.cortina-marca .ab-elipse { animation-delay: .15s; }
+.cortina-marca .ab-omega  { animation-delay: .55s; }
+@keyframes traçarMarca { to { stroke-dashoffset: 0; } }
+
+.cortina-titulo {
+  font-size: clamp(1.9rem, 6.5vw, 3.1rem);
+  font-weight: 700; letter-spacing: -.028em; line-height: 1.08;
+  color: #fff; margin: 0;
+}
+.ab-palavra { display: inline-block; }
+.ab-palavra-2 { margin-left: .2em; color: var(--marca); }
+.cortina-titulo .letra {
+  display: inline-block; opacity: 0;
+  animation: letraSobe .5s cubic-bezier(.2,.9,.3,1) both;
+  animation-delay: calc(var(--i) * 45ms + 900ms);
+}
+@keyframes letraSobe {
+  from { opacity: 0; transform: translateY(20px); filter: blur(4px); }
+  to   { opacity: 1; transform: none; filter: blur(0); }
+}
+
+.cortina-sub {
+  margin-top: 14px; color: rgba(255,255,255,.55);
+  font-size: .82rem; font-weight: 600;
+  letter-spacing: .22em; text-transform: uppercase;
+  opacity: 0; animation: subSobe .6s ease 1.75s both;
+}
+@keyframes subSobe { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: none; } }
+
+.cortina-pular {
+  position: absolute; left: 50%; bottom: -16vh; transform: translateX(-50%);
+  border: 0; background: none; color: rgba(255,255,255,.45);
+  font-size: .85rem; font-weight: 600; padding: .6rem 1.2rem;
+  opacity: 0; animation: pularSurge .6s ease 1.3s both;
+}
+.cortina-pular:hover { color: var(--marca); }
+@keyframes pularSurge {
+  from { opacity: 0; transform: translate(-50%, 12px); }
+  to   { opacity: 1; transform: translate(-50%, 0); }
+}
+
+/* Pontos de luz subindo ao fundo (criados pelo JS) */
+.cortina-particulas { position: absolute; inset: 0; pointer-events: none; }
+.mote {
+  position: absolute; bottom: -12px; border-radius: 50%;
+  background: radial-gradient(circle, rgba(246,177,0,.85), rgba(246,177,0,0) 70%);
+  animation: moteSobe var(--dur, 6s) linear var(--atraso, 0s) infinite;
+  opacity: 0;
+}
+@keyframes moteSobe {
+  0%   { opacity: 0; transform: translateY(0) translateX(0); }
+  12%  { opacity: .8; }
+  85%  { opacity: .25; }
+  100% { opacity: 0; transform: translateY(-102vh) translateX(var(--deriva, 0)); }
+}
+
+/* Enquanto a cortina está de pé, a abertura da página espera a vez */
+html.cortina-ativa .entrada-hero,
+html.cortina-ativa .abertura .maquete { animation-play-state: paused; }
+
+@media (prefers-reduced-motion: reduce) {
+  .cortina-abertura, .cortina-brilho, .cortina-marca .ab-elipse, .cortina-marca .ab-omega,
+  .cortina-titulo .letra, .cortina-sub, .cortina-pular { animation: none; }
+  .cortina-marca .ab-elipse, .cortina-marca .ab-omega { stroke-dasharray: none; stroke-dashoffset: 0; }
+  .cortina-titulo .letra, .cortina-sub, .cortina-pular, .cortina-brilho { opacity: 1; }
+  .cortina-pular { transform: translate(-50%, 0); }
+  .mote { display: none; }
+}
+
+/* A cortina é decoração: na impressão ela não existe */
+@media print { .cortina-abertura { display: none !important; } }
