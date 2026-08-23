@@ -19,10 +19,9 @@ body.portal { background: var(--branco); }
 .marca-portal { display: flex; align-items: center; gap: 10px; text-decoration: none; color: var(--texto); }
 .marca-portal:hover { text-decoration: none; }
 .marca-portal .escudo {
-  width: 34px; height: 34px; border-radius: 7px; flex: none;
+  width: 40px; height: 40px; border-radius: 9px; flex: none;
   background: var(--tinta-900); color: #fff;
   display: flex; align-items: center; justify-content: center;
-  font-size: .74rem; font-weight: 800; letter-spacing: .03em;
 }
 .marca-portal .txt { line-height: 1.15; }
 .marca-portal .txt b { font-size: 1rem; font-weight: 700; letter-spacing: -.012em; }
@@ -47,17 +46,17 @@ body.portal { background: var(--branco); }
 .tarja {
   display: inline-flex; align-items: center; gap: 7px;
   padding: 4px 12px 4px 6px; border-radius: 20px;
-  background: var(--marca-clara); border: 1px solid #c9d8f0;
-  font-size: .78rem; font-weight: 600; color: var(--marca-escura);
+  background: var(--marca-clara); border: 1px solid #f0dfa6;
+  font-size: .78rem; font-weight: 600; color: var(--enlace);
   margin-bottom: 18px;
 }
 .tarja b {
-  background: var(--marca); color: #fff; padding: 1px 8px; border-radius: 20px;
+  background: var(--marca); color: var(--sobre-marca); padding: 1px 8px; border-radius: 20px;
   font-size: .68rem; text-transform: uppercase; letter-spacing: .05em;
 }
 
 .abertura h1 { font-size: clamp(1.95rem, 4.3vw, 2.75rem); line-height: 1.12; letter-spacing: -.028em; }
-.abertura h1 em { font-style: normal; color: var(--marca); }
+.abertura h1 em { font-style: normal; background: linear-gradient(transparent 58%, #ffd763 58%); padding: 0 2px; }
 .abertura .chamada { font-size: 1.06rem; color: var(--texto-2); margin: 16px 0 26px; max-width: 540px; line-height: 1.6; }
 .abertura .botoes { display: flex; gap: 11px; flex-wrap: wrap; }
 
@@ -114,7 +113,7 @@ body.portal { background: var(--branco); }
 .cabeca-secao { max-width: 640px; margin-bottom: 34px; }
 .cabeca-secao .olho {
   font-size: .73rem; font-weight: 700; letter-spacing: .1em;
-  text-transform: uppercase; color: var(--marca); margin-bottom: 9px;
+  text-transform: uppercase; color: var(--enlace); margin-bottom: 9px;
 }
 .cabeca-secao h2 { font-size: clamp(1.42rem, 2.7vw, 1.85rem); letter-spacing: -.024em; }
 .cabeca-secao p { color: var(--texto-2); margin-top: 11px; font-size: 1rem; line-height: 1.6; }
@@ -133,7 +132,7 @@ body.portal { background: var(--branco); }
   display: flex; align-items: center; justify-content: center; margin-bottom: 15px;
 }
 .perfil .emblema svg { width: 20px; height: 20px; }
-.perfil.gestor .emblema  { background: var(--marca-clara); color: var(--marca-escura); }
+.perfil.gestor .emblema  { background: var(--marca-clara); color: var(--enlace); }
 .perfil.docente .emblema { background: var(--verde-claro); color: #14603c; }
 .perfil.aluno .emblema   { background: #eeecf6; color: #453a6b; }
 .perfil h3 { font-size: 1.08rem; }
@@ -149,7 +148,7 @@ body.portal { background: var(--branco); }
 .passo { position: relative; padding-top: 16px; border-top: 3px solid var(--linha); }
 .passo::before {
   counter-increment: p; content: counter(p, decimal-leading-zero);
-  display: block; font-size: .8rem; font-weight: 800; color: var(--marca);
+  display: block; font-size: .8rem; font-weight: 800; color: var(--enlace);
   font-variant-numeric: tabular-nums; margin-bottom: 6px;
 }
 .passo h4 { font-size: .97rem; margin-bottom: 5px; }
@@ -163,7 +162,7 @@ body.portal { background: var(--branco); }
 .recurso .ico {
   width: 34px; height: 34px; flex: none; border-radius: 8px;
   background: var(--papel); border: 1px solid var(--linha);
-  display: flex; align-items: center; justify-content: center; color: var(--marca);
+  display: flex; align-items: center; justify-content: center; color: var(--enlace);
 }
 .recurso .ico svg { width: 17px; height: 17px; }
 .recurso h4 { font-size: .94rem; margin-bottom: 3px; }
@@ -183,7 +182,7 @@ body.portal { background: var(--branco); }
 }
 .secao-acesso .lista-conta code {
   background: rgba(255,255,255,.1); padding: 2px 8px; border-radius: var(--r-p);
-  font-size: .82rem; color: #dbe6fa;
+  font-size: .82rem; color: #f6e7bd;
 }
 
 .painel-entrada {
@@ -204,7 +203,7 @@ body.portal { background: var(--branco); }
 .escolha-perfil svg { width: 19px; height: 19px; }
 .escolha-perfil input { position: absolute; opacity: 0; pointer-events: none; }
 .escolha-perfil label:has(input:checked) {
-  border-color: var(--marca); background: var(--marca-clara); color: var(--marca-escura);
+  border-color: var(--marca); background: var(--marca-clara); color: var(--enlace);
   box-shadow: inset 0 0 0 1px var(--marca);
 }
 
@@ -214,7 +213,7 @@ body.portal { background: var(--branco); }
 }
 
 /* --------------------------------------------------------------- Rodape -- */
-.rodape-portal { background: #0b1628; color: rgba(255,255,255,.6); padding: 40px 0 30px; font-size: .855rem; }
+.rodape-portal { background: #121317; color: rgba(255,255,255,.6); padding: 40px 0 30px; font-size: .855rem; }
 .rodape-portal .envelope { display: grid; grid-template-columns: minmax(0, 1.4fr) repeat(2, minmax(0, 1fr)); gap: 34px; }
 @media (max-width: 760px) { .rodape-portal .envelope { grid-template-columns: 1fr; gap: 24px; } }
 .rodape-portal h5 { color: #fff; font-size: .8rem; text-transform: uppercase; letter-spacing: .08em; margin-bottom: 11px; }
@@ -228,9 +227,7 @@ body.portal { background: var(--branco); }
 }
 .rodape-portal .marca-rodape { display: flex; align-items: center; gap: 10px; color: #fff; margin-bottom: 12px; }
 .rodape-portal .marca-rodape .escudo {
-  width: 30px; height: 30px; border-radius: 7px; background: var(--marca);
-  display: flex; align-items: center; justify-content: center;
-  font-size: .68rem; font-weight: 800;
+  width: 34px; height: 34px; display: flex; align-items: center; justify-content: center;
 }
 
 /* Rolagem suave e folga sob o cabecalho fixo ao usar as ancoras */
@@ -239,10 +236,8 @@ html { scroll-behavior: smooth; }
 section[id] { scroll-margin-top: 74px; }
 
 /* Marca no portal */
-.marca-portal .escudo { padding: 6px; }
-.marca-portal .escudo .marca-omega { width: 22px; height: 22px; }
-.rodape-portal .marca-rodape .escudo { padding: 5px; }
-.rodape-portal .marca-rodape .escudo .marca-omega { width: 20px; height: 20px; }
+.marca-portal .escudo .marca-omega { width: 30px; height: 30px; }
+.rodape-portal .marca-rodape .escudo .marca-omega { width: 30px; height: 30px; }
 
 /* Lista de contas de demonstração */
 .secao-acesso .lista-conta li { align-items: flex-start; line-height: 1.55; }
@@ -250,3 +245,69 @@ section[id] { scroll-margin-top: 74px; }
   flex: none; min-width: 82px; text-align: center; margin-top: 2px;
 }
 .secao-acesso .lista-conta li b { color: #fff; font-weight: 600; }
+
+/* ------------------------------------------------------ Seção da escola -- */
+.escola-grade {
+  display: grid; grid-template-columns: 360px minmax(0, 1fr);
+  gap: 30px; align-items: start;
+}
+@media (max-width: 860px) { .escola-grade { grid-template-columns: 1fr; } }
+
+.cartao-logo {
+  background: var(--branco); border: 1px solid var(--linha);
+  border-radius: var(--r-g); padding: 26px; box-shadow: var(--sombra-1);
+  display: flex; align-items: center; justify-content: center;
+}
+.cartao-logo img { width: 100%; max-width: 290px; border-radius: 6px; }
+
+.ficha-escola {
+  display: grid; grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px; margin: 0;
+}
+@media (max-width: 560px) { .ficha-escola { grid-template-columns: 1fr; } }
+.ficha-escola > div {
+  background: var(--branco); border: 1px solid var(--linha);
+  border-radius: var(--r-g); padding: 15px 17px; box-shadow: var(--sombra-1);
+}
+.ficha-escola dt {
+  font-size: .72rem; font-weight: 700; letter-spacing: .07em;
+  text-transform: uppercase; color: var(--texto-3); margin-bottom: 5px;
+}
+.ficha-escola dd { margin: 0; font-size: .9rem; line-height: 1.55; }
+
+/* ------------------------------------------------------------ Animações -- */
+/* Entrada do topo da página */
+.entrada-hero { animation: subir-hero .55s cubic-bezier(.2,.7,.3,1) both; }
+.abertura .maquete { animation: subir-hero .55s cubic-bezier(.2,.7,.3,1) .12s both; }
+@keyframes subir-hero {
+  from { opacity: 0; transform: translateY(18px); }
+  to   { opacity: 1; transform: none; }
+}
+
+/* Elementos que aparecem conforme a página rola. O estado inicial oculto só
+   existe quando o JS marcou <html class="anim"> — sem JavaScript, e na
+   impressão, tudo fica visível. */
+html.anim .rev { opacity: 0; transform: translateY(16px); transition: opacity .5s ease, transform .5s ease; }
+html.anim .rev.vis { opacity: 1; transform: none; }
+
+@media (prefers-reduced-motion: reduce) {
+  html.anim .rev { opacity: 1; transform: none; transition: none; }
+  .entrada-hero, .abertura .maquete { animation: none; }
+}
+@media print {
+  html.anim .rev { opacity: 1 !important; transform: none !important; }
+}
+
+/* Interações */
+.perfil, .recurso, .ficha-escola > div, .cartao-logo {
+  transition: transform .18s ease, box-shadow .18s ease, opacity .5s ease;
+}
+.perfil:hover, .ficha-escola > div:hover, .cartao-logo:hover {
+  transform: translateY(-3px); box-shadow: var(--sombra-2);
+}
+html.anim .rev.vis:hover { transform: translateY(-3px); }
+.recurso:hover .ico { border-color: var(--marca); color: var(--enlace); }
+.recurso .ico { transition: border-color .18s ease, color .18s ease; }
+.btn { transition: background-color .13s, border-color .13s, color .13s, box-shadow .18s, transform .13s; }
+.btn-principal:hover, .btn-g:hover { transform: translateY(-1px); }
+.nav-portal a { position: relative; }

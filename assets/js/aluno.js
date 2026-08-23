@@ -138,7 +138,7 @@
         "<div><h2>Olá, " + esc(N.primeiroNome(eu.nome)) + "</h2>" +
         "<p>" + esc(turma ? turma.nome : "sem turma") + " · " + esc(turma ? turma.turno : "") +
         " · matrícula " + esc(eu.matricula) + "</p>" +
-        '<div class="ponto-vivo topo-8"><i></i>Boletim sincronizado em tempo real</div></div>' +
+        '<div class="ponto-vivo topo-8"><i></i>Atualizado em tempo real</div></div>' +
         '<div class="medidor-geral"><div class="r">Média geral parcial</div>' +
         '<div class="n">' + fmt.nota(bol.mediaGeral) + "</div>" +
         '<div class="r" style="margin-top:6px">' + bol.totalLancadas + " de " + bol.totalPrevistas + " notas lançadas</div></div>" +
@@ -152,7 +152,7 @@
         Casca.kpi({ rotulo: "Atividades pendentes", valor: pendentes.length, tom: "roxo",
           nota: minhasAtividades().length + " publicadas na turma" }) +
         Casca.kpi({ rotulo: "Prazo vencido", valor: atrasadas.length, tom: atrasadas.length ? "rubro" : "verde",
-          nota: atrasadas.length ? "entregue o quanto antes" : "nada atrasado" }) +
+          nota: atrasadas.length ? "atividades com prazo vencido" : "nenhuma atrasada" }) +
       "</div>" +
 
       '<div class="grade-12-8" style="margin-bottom:16px">' +
@@ -173,7 +173,7 @@
                   '<td class="num" style="font-size:1.05rem;font-weight:700;color:' +
                   Graficos.corPorNota(n.valor, cfg.mediaMinima) + '">' + fmt.nota(n.valor) + "</td></tr>";
               }).join("") + "</tbody></table>"
-            : Casca.vazio("Nenhuma nota ainda", "Assim que um professor lançar, aparece aqui na hora.", "livro")
+            : Casca.vazio("Nenhuma nota ainda", "As notas lançadas pelos professores aparecem aqui.", "livro")
         }) +
       "</div>" +
 
@@ -190,7 +190,7 @@
         }) +
         Casca.cartao({
           titulo: "O que falta para fechar na média",
-          sub: "Soma necessária nos bimestres que ainda não foram lançados",
+          sub: "Pontos necessários nos bimestres que faltam",
           justo: true,
           corpo: faltando.length
             ? '<div class="rolagem-x"><table class="tabela"><thead><tr><th>Componente</th>' +
@@ -231,7 +231,7 @@
 
     visao.innerHTML =
       Casca.cabecalho("Meu boletim",
-        "Atualizado automaticamente. Não é preciso recarregar a página quando um professor lança uma nota.",
+        "Atualizado automaticamente quando um professor lança uma nota.",
         '<button class="btn btn-neutro" id="btnImprimirBol">' + Icone("imprimir") + "<span>Imprimir</span></button>") +
 
       '<section class="cartao">' +
@@ -243,7 +243,7 @@
           '<div class="linha-flex quebra" style="gap:20px">' +
             '<span class="pequeno texto-2 linha-flex" style="gap:6px">' +
               '<span class="ponto-vivo" style="color:var(--texto-2)"><i style="background:var(--verde)"></i></span>' +
-              "Sincronizado — última verificação " + fmt.dataHora(new Date().toISOString()) + "</span>" +
+              "Atualização automática ativa</span>" +
             '<span class="pequeno texto-2">Média mínima para aprovação: <b>' + fmt.nota(cfg.mediaMinima) + "</b></span>" +
             '<span class="pequeno texto-2">Recuperação a partir de <b>' + fmt.nota(cfg.mediaRecuperacao) + "</b></span>" +
           "</div>" +
@@ -278,7 +278,7 @@
 
     Graficos.linha($("#gEvolucao"), {
       rotulos: ["1º bim.", "2º bim.", "3º bim.", "4º bim."],
-      series: [{ nome: "Minha média", cor: "#5b4b8a", pontos: porBimestre }],
+      series: [{ nome: "Minha média", cor: "#b17f00", pontos: porBimestre }],
       max: cfg.notaMaxima, area: true, altura: 236, corte: { valor: cfg.mediaMinima },
       descricao: "Evolução da média do estudante ao longo dos bimestres"
     });
@@ -311,7 +311,7 @@
     visao.innerHTML =
       Casca.cabecalho("Mural da turma",
         (minhaTurma() ? minhaTurma().nome + " · " : "") +
-        "Ordenado por urgência: o que está atrasado vem primeiro, depois o prazo mais próximo.") +
+        "Atividades da turma, ordenadas pelo prazo de entrega.") +
 
       '<div class="barra-lancamento">' +
         '<div class="filtros">' + chips.map(ch =>

@@ -178,3 +178,65 @@
     });
   });
 })();
+
+/* ==========================================================================
+   Animações da página: elementos surgem conforme a rolagem e os números da
+   faixa de abertura contam até o valor final.
+   ========================================================================== */
+(function () {
+  "use strict";
+
+  const reduzir = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  // Liga o estado inicial oculto dos elementos .rev — só com JS ativo.
+  document.documentElement.classList.add("anim");
+  const alvos = Array.prototype.slice.call(document.querySelectorAll(".rev"));
+
+  if (reduzir || !("IntersectionObserver" in window)) {
+    alvos.forEach(el => el.classList.add("vis"));
+  } else {
+    // Pequeno atraso progressivo entre elementos vizinhos do mesmo bloco.
+    const obs = new IntersectionObserver(function (entradas) {
+      entradas.forEach(function (e) {
+        if (!e.isIntersecting) return;
+        const pai = e.target.parentElement;
+        const irmaos = pai ? Array.prototype.filter.call(pai.children, x => x.classList && x.classList.contains("rev")) : [];
+        const indice = Math.max(0, irmaos.indexOf(e.target));
+        e.target.style.transitionDelay = Math.min(indice * 70, 280) + "ms";
+        e.target.classList.add("vis");
+        obs.unobserve(e.target);
+      });
+    }, { rootMargin: "0px 0px -8% 0px", threshold: 0.15 });
+    alvos.forEach(el => obs.observe(el));
+  }
+
+  /* Contadores da abertura ------------------------------------------------ */
+  const numeros = Array.prototype.slice.call(document.querySelectorAll("[data-contar]"));
+  if (!numeros.length) return;
+
+  function contar(el) {
+    const alvo = parseInt(el.dataset.contar, 10);
+    if (reduzir || isNaN(alvo)) { el.textContent = el.dataset.contar; return; }
+    const inicio = performance.now();
+    const duracao = 700;
+    function passo(agora) {
+      const p = Math.min(1, (agora - inicio) / duracao);
+      const suave = 1 - Math.pow(1 - p, 3);
+      el.textContent = Math.round(alvo * suave);
+      if (p < 1) requestAnimationFrame(passo);
+    }
+    requestAnimationFrame(passo);
+  }
+
+  if ("IntersectionObserver" in window && !reduzir) {
+    const obsNum = new IntersectionObserver(function (entradas) {
+      entradas.forEach(function (e) {
+        if (!e.isIntersecting) return;
+        contar(e.target);
+        obsNum.unobserve(e.target);
+      });
+    }, { threshold: 0.6 });
+    numeros.forEach(el => obsNum.observe(el));
+  } else {
+    numeros.forEach(el => { el.textContent = el.dataset.contar; });
+  }
+})();

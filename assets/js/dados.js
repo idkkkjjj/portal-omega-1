@@ -511,7 +511,7 @@
 
     registrar({
       tipo: "criacao", autorId: autorId,
-      acao: dados.papel === "professor" ? "Professor cadastrado" : dados.papel === "aluno" ? "Aluno matriculado" : "Gestor cadastrado",
+      acao: dados.papel === "professor" ? "Professor cadastrado" : dados.papel === "aluno" ? "Estudante matriculado" : "Gestor cadastrado",
       detalhe: novo.nome + " — matrícula " + novo.matricula +
         (dados.papel === "aluno" ? " — " + (turma(novo.turmaId) || {}).nome : "") + "."
     });

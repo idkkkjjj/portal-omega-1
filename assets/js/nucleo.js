@@ -220,15 +220,16 @@
   };
 
   /**
-   * Símbolo Ômega da instituição. `tom` define a cor do traço (herda a cor do
-   * texto por padrão) e `barra` liga o filete vermelho da marca.
+   * Marca do colégio: a elipse amarela do logotipo em volta do símbolo Ômega.
+   * `tom` define a cor do Ômega (herda a cor do texto por padrão).
    */
   function Marca(opcoes) {
     const o = opcoes || {};
     return '<svg class="marca-omega" viewBox="0 0 64 64" fill="none" aria-hidden="true">' +
-      '<path d="M18 45h10v-4a14 14 0 1 1 8 0v4h10" stroke="' + (o.tom || "currentColor") +
-      '" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>' +
-      (o.barra === false ? "" : '<rect x="18" y="52" width="28" height="4" rx="2" fill="#c1272d"/>') +
+      '<ellipse cx="32" cy="34" rx="27" ry="14.5" transform="rotate(-14 32 34)" ' +
+        'stroke="#f6b100" stroke-width="5"/>' +
+      '<path d="M22 41h7v-3a10.5 10.5 0 1 1 6 0v3h7" stroke="' + (o.tom || "currentColor") +
+        '" stroke-width="4.6" stroke-linecap="round" stroke-linejoin="round"/>' +
       "</svg>";
   }
 

@@ -1,22 +1,22 @@
 /* ==========================================================================
    base.css — variaveis, reset e tipografia
-   SIGE — Sistema Integrado de Gestao Escolar
+   Portal Ômega — Colégio Ômega, Aracaju/SE
    ========================================================================== */
 
 :root {
   /* Cores institucionais */
-  --tinta-900: #101f38;
-  --tinta-800: #16294a;
-  --tinta-700: #1d3760;
-  --tinta-600: #2a4a7a;
+  /* Identidade do Colégio Ômega: elipse amarela e letras pretas. */
+  --tinta-900: #17181c;
+  --tinta-800: #1f2126;
+  --tinta-700: #2a2c33;
+  --tinta-600: #383b44;
 
-  --marca:        #1b4f9c;
-  --marca-escura: #143c78;
-  --marca-clara:  #e8effa;
-
-  /* Vermelho do símbolo Ômega. Só aparece na marca — os dados usam as cores
-     semânticas abaixo, para não competir com o vermelho de "abaixo da média". */
-  --omega: #c1272d;
+  --marca:        #f6b100;   /* amarelo do logotipo — fundos e destaques */
+  --marca-escura: #d99b00;   /* estado hover dos botões */
+  --marca-clara:  #fdf3d6;   /* fundos suaves */
+  --marca-borda:  #f0dfa6;   /* bordas dos fundos suaves */
+  --enlace:       #8a6400;   /* amarelo escurecido para texto e links */
+  --sobre-marca:  #211900;   /* texto sobre fundo amarelo */
 
   --verde:       #1c7a4f;
   --verde-claro: #e2f1e9;
@@ -74,7 +74,7 @@ h4 { font-size: .95rem; }
 p  { margin: 0 0 .8em; }
 p:last-child { margin-bottom: 0; }
 
-a { color: var(--marca); text-decoration: none; }
+a { color: var(--enlace); text-decoration: none; }
 a:hover { text-decoration: underline; }
 
 ul, ol { margin: 0 0 1em; padding-left: 1.25em; }
@@ -109,7 +109,7 @@ kbd {
   border-radius: 3px;
 }
 
-::selection { background: #bcdcee; }
+::selection { background: #fbe7ad; }
 
 /* Barras de rolagem discretas (WebKit) */
 ::-webkit-scrollbar { width: 11px; height: 11px; }

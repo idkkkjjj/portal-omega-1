@@ -1,11 +1,12 @@
-# Portal Ômega — Sistema Acadêmico
+# Portal Ômega
 
-Sistema escolar completo para o **Colégio Ômega** (Aracaju/SE), escrito em **HTML, CSS e
-JavaScript puro** — sem framework, sem build, sem dependência externa. Abre num duplo clique
+Sistema acadêmico do **Colégio Ômega** (Aracaju/SE), escrito em **HTML, CSS e
+JavaScript puro**, sem framework e sem dependência externa. Abre num duplo clique
 ou em qualquer servidor estático.
 
-Cobre as duas etapas que trabalham com boletim bimestral na escola: **Anos Finais do Ensino
-Fundamental (6º ao 9º ano)** e **Ensino Médio (1ª a 3ª série)**.
+Cobre as duas etapas com boletim bimestral: **Anos Finais do Ensino Fundamental
+(6º ao 9º ano)** e **Ensino Médio (1ª a 3ª série)**. A identidade visual (amarelo
+e preto) segue o logotipo da escola.
 
 ![Página inicial do Portal Ômega](docs/capturas/01-portal.png)
 
@@ -43,15 +44,16 @@ Três perfis de acesso, cada um com a sua própria área.
   comparativo entre turmas e entre etapas, e a lista nominal de quem precisa de recuperação.
 - Ficha completa de cada conta docente, com redefinição de senha e **acesso assistido**
   (abrir o sistema como aquela pessoa, com aviso na tela e registro em auditoria).
-- Configurações da escola: identificação, turmas, regras de avaliação, exportação em CSV e
-  cópia de segurança da base.
+- Configurações da escola: identificação, turmas, regras de avaliação e cópia de
+  segurança da base.
+- Exportação dos boletins em **CSV** na tela de Desempenho.
 
 ### Corpo docente
 
 - **Diário de classe** com todos os estudantes da turma e as quatro colunas bimestrais.
   Navegação por teclado, média e situação recalculadas enquanto se digita, e gravação em lote.
-- O seletor só oferece **os componentes que aquele professor leciona naquela turma** — a
-  matriz muda entre Anos Finais e Ensino Médio, e o sistema respeita isso sozinho.
+- O seletor só oferece **os componentes que aquele professor leciona naquela turma**,
+  seguindo a matriz de cada etapa.
 - "Preencher coluna" para atribuir uma nota base a toda a turma antes dos ajustes individuais.
 - **Publicação de atividades** com título, orientações, prazo, prioridade, valor em pontos,
   link de apoio e imagens anexadas.
@@ -59,7 +61,7 @@ Três perfis de acesso, cada um com a sua própria área.
 
 ### Estudante
 
-- **Boletim que se atualiza sozinho**: quando o professor salva, a nota aparece na hora,
+- **Boletim atualizado automaticamente**: quando o professor salva, a nota aparece
   destacada, com um aviso dizendo qual componente mudou.
 - Média parcial mesmo com bimestres em aberto e **quanto ainda falta somar** para fechar o
   ano na média em cada componente.
@@ -73,8 +75,8 @@ Três perfis de acesso, cada um com a sua própria área.
 Não precisa instalar nada.
 
 ```bash
-git clone https://github.com/<usuario>/portal-colegio-omega.git
-cd portal-colegio-omega
+git clone https://github.com/<usuario>/portal-omega.git
+cd portal-omega
 ```
 
 Depois, escolha uma das opções:
@@ -90,7 +92,7 @@ npx serve .
 
 E abra <http://localhost:8000>.
 
-Na primeira visita o sistema cria sozinho uma base de demonstração com 7 turmas,
+Na primeira visita, uma base de demonstração é criada automaticamente, com 7 turmas,
 103 estudantes, 16 professores e mais de 2 mil notas lançadas.
 
 ---
@@ -192,7 +194,7 @@ formativos não geram nota no boletim.
 
 ## Como a atualização em tempo real funciona
 
-Não existe servidor nem WebSocket. A sincronia acontece entre as abas do mesmo navegador:
+A sincronia acontece entre as abas do mesmo navegador, sem servidor:
 
 1. Uma tela grava na base (`localStorage`).
 2. `dados.js` emite a mudança num **`BroadcastChannel`**, com o evento **`storage`** como
@@ -201,8 +203,8 @@ Não existe servidor nem WebSocket. A sincronia acontece entre as abas do mesmo 
 4. A tela do estudante compara o retrato anterior das notas com o novo, descobre exatamente
    o que mudou, dispara o aviso e destaca a célula.
 
-A sessão fica em `sessionStorage` de propósito: assim **cada aba pode estar logada com um
-usuário diferente**, que é o que torna a demonstração possível numa máquina só.
+A sessão fica em `sessionStorage`: cada aba pode estar logada com um usuário
+diferente, o que permite demonstrar o professor e o aluno lado a lado.
 
 ---
 
@@ -234,12 +236,13 @@ usuário diferente**, que é o que torna a demonstração possível numa máquin
 │   │   ├── gestor.js       Telas da gestão
 │   │   ├── professor.js    Telas do corpo docente
 │   │   └── aluno.js        Telas do estudante
-│   └── img/favicon.svg
+│   └── img/                Favicon e logotipo da escola
+├── tests/                  Verificações da camada de dados (Node)
 └── docs/capturas/          Imagens usadas neste README
 ```
 
-Nenhum arquivo depende de rede: os ícones são SVG embutidos, os gráficos são desenhados à
-mão em SVG e a tipografia usa a fonte do sistema.
+Nenhum arquivo depende de rede: os ícones e gráficos são SVG embutidos e a
+tipografia usa a fonte do sistema.
 
 ---
 
@@ -265,23 +268,25 @@ Consequências práticas:
 
 ## Testes
 
-O projeto tem uma bateria de verificações da camada de dados que roda fora do navegador
-(Node, sem dependências) e um *smoke test* que abre todas as telas no Chrome headless e
-falha se qualquer uma registrar erro de JavaScript.
+A camada de dados tem uma bateria de verificações que roda fora do navegador, em Node,
+sem nenhuma dependência:
 
-Estado atual:
+```bash
+node tests/teste-dados.js
+```
 
-- **138 verificações** da camada de dados — identificação da escola, matrizes por etapa,
-  integridade das notas, login, boletim, lançamento e correção, cadastro de contas,
-  atividades, estatísticas, classificação, formatação, exportação e persistência.
-- **26 telas** abertas no navegador sem nenhum erro de console.
+São 138 verificações: identificação da escola, matrizes por etapa, integridade das
+notas, login, boletim, lançamento e correção, cadastro de contas, atividades,
+estatísticas, classificação, formatação, exportação e persistência.
+
+As telas também foram abertas em Chrome headless durante o desenvolvimento, sem
+nenhum erro de console registrado.
 
 ---
 
 ## Limitações conhecidas
 
-São escolhas conscientes de um projeto sem servidor, e estão documentadas para não passarem
-por descuido:
+Escolhas de projeto de um sistema sem servidor:
 
 - **As senhas não têm proteção criptográfica real.** São guardadas como um resumo com sal
   (FNV-1a duplo) só para não ficarem em texto puro no navegador. Num sistema em produção isso

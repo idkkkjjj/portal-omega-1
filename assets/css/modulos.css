@@ -76,7 +76,7 @@
 .atividade .faixa-prio { background: var(--linha-forte); }
 .atividade[data-prio="alta"] .faixa-prio  { background: var(--rubro); }
 .atividade[data-prio="media"] .faixa-prio { background: var(--ambar); }
-.atividade[data-prio="baixa"] .faixa-prio { background: var(--marca); }
+.atividade[data-prio="baixa"] .faixa-prio { background: #33517a; } /* mesmo azul-aço do selo "Baixa" */
 .atividade.concluida { opacity: .62; }
 .atividade.concluida .titulo-atv { text-decoration: line-through; }
 
@@ -198,7 +198,7 @@
 
 /* --------------------------------------------------------- Painel aluno -- */
 .cartao-saudacao {
-  background: linear-gradient(105deg, var(--tinta-900), var(--tinta-700) 62%, #2a4a7a);
+  background: linear-gradient(105deg, #141519, var(--tinta-800) 60%, #2e3138);
   color: #fff; border-radius: var(--r-g); padding: 22px 24px;
   display: flex; align-items: center; justify-content: space-between;
   gap: 20px; flex-wrap: wrap; margin-bottom: 18px;

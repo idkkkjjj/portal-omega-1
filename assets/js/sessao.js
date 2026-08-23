@@ -23,6 +23,9 @@
     aluno: "Estudante"
   };
 
+  // Nomes exibidos no seletor de perfil da tela de acesso.
+  const NOMES_FORM = { gestor: "Gestão", professor: "Professor", aluno: "Aluno" };
+
   function ler() {
     try {
       const bruto = sessionStorage.getItem(CHAVE);
@@ -66,7 +69,7 @@
     if (papelEsperado && u.papel !== papelEsperado) {
       return {
         ok: false,
-        erro: "Esta conta é do perfil " + ROTULOS[u.papel].toLowerCase() + ". Selecione o perfil correto para continuar.",
+        erro: "Esta conta é do perfil " + (NOMES_FORM[u.papel] || u.papel) + ". Selecione esse perfil para continuar.",
         campo: "perfil"
       };
     }

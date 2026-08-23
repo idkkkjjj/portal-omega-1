@@ -21,8 +21,7 @@
 }
 .marca-app .sigla {
   display: flex; align-items: center; justify-content: center;
-  min-width: 28px; height: 28px; padding: 0 7px; border-radius: 6px; flex: none;
-  background: var(--marca); font-size: .72rem; font-weight: 800; letter-spacing: .04em;
+  width: 34px; height: 34px; flex: none;
 }
 .marca-app .nome { font-size: .97rem; font-weight: 700; letter-spacing: -.01em; line-height: 1.15; }
 .marca-app .nome small {
@@ -43,8 +42,8 @@
 .pilula-periodo {
   display: inline-flex; align-items: center; gap: 6px;
   padding: 4px 11px; border-radius: 20px;
-  background: var(--marca-clara); border: 1px solid #c9d8f0;
-  font-size: .78rem; font-weight: 600; color: var(--marca-escura);
+  background: var(--marca-clara); border: 1px solid #f0dfa6;
+  font-size: .78rem; font-weight: 600; color: var(--enlace);
 }
 .pilula-periodo .ponto {
   width: 7px; height: 7px; border-radius: 50%; background: var(--verde);
@@ -106,14 +105,14 @@
 }
 .barra-lateral a svg { width: 17px; height: 17px; flex: none; opacity: .78; }
 .barra-lateral a:hover { background: rgba(255,255,255,.07); color: #fff; text-decoration: none; }
-.barra-lateral a.ativo { background: var(--marca); color: #fff; font-weight: 600; }
+.barra-lateral a.ativo { background: var(--marca); color: var(--sobre-marca); font-weight: 600; }
 .barra-lateral a.ativo svg { opacity: 1; }
 .barra-lateral a .conta {
   margin-left: auto; font-size: .7rem; font-weight: 700;
   background: rgba(255,255,255,.16); padding: 1px 7px; border-radius: 10px;
   font-variant-numeric: tabular-nums;
 }
-.barra-lateral a.ativo .conta { background: rgba(0,0,0,.22); }
+.barra-lateral a.ativo .conta { background: rgba(0,0,0,.14); color: var(--sobre-marca); }
 .barra-lateral .rodape-menu {
   margin-top: auto; padding: 14px 12px 0;
   font-size: .72rem; color: rgba(255,255,255,.36); line-height: 1.55;
@@ -200,29 +199,61 @@
   .barra-topo { padding: 0 15px; }
   .cabecalho-pagina h1 { font-size: 1.24rem; }
 }
-.cortina { display: none; position: fixed; inset: 0; z-index: 110; background: rgba(16,31,56,.42); }
+.cortina { display: none; position: fixed; inset: 0; z-index: 110; background: rgba(23,24,28,.45); }
 .cortina.visivel { display: block; }
 
 /* ------------------------------------------------- Faixa de acesso assistido */
 .faixa-personificacao {
   display: flex; align-items: center; gap: 10px; flex-wrap: wrap;
-  padding: 8px 18px; background: var(--ambar); color: #fff;
+  padding: 8px 18px; background: var(--tinta-900); color: #fff;
+  border-bottom: 3px solid var(--marca);
   font-size: .85rem; line-height: 1.4;
 }
+.faixa-personificacao svg { color: var(--marca); }
 .faixa-personificacao svg { width: 16px; height: 16px; flex: none; }
 .faixa-personificacao b { font-weight: 700; }
 .faixa-personificacao button {
-  margin-left: auto; border: 1px solid rgba(255,255,255,.5);
-  background: rgba(255,255,255,.14); color: #fff;
-  padding: 3px 12px; border-radius: 20px; font-size: .8rem; font-weight: 600;
+  margin-left: auto; border: 0;
+  background: var(--marca); color: var(--sobre-marca);
+  padding: 4px 13px; border-radius: 20px; font-size: .8rem; font-weight: 700;
 }
-.faixa-personificacao button:hover { background: rgba(255,255,255,.26); }
+.faixa-personificacao button:hover { background: var(--marca-escura); }
 
 /* Lista de seleção fixa + área de conteúdo elástica (usado em Boletins) */
 .grade-lista { display: grid; grid-template-columns: 286px minmax(0, 1fr); gap: 16px; }
 @media (max-width: 1000px) { .grade-lista { grid-template-columns: 1fr; } }
 
 /* Marca no canto superior esquerdo */
-.marca-app .sigla { padding: 5px; }
-.marca-app .sigla .marca-omega { width: 18px; height: 18px; }
+.marca-app .sigla .marca-omega { width: 30px; height: 30px; }
 .marca-app .nome { max-width: 150px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+
+/* ------------------------------------------------ Transições e gráficos -- */
+.faixa.entrando { animation: entrar-visao .26s ease-out; }
+@keyframes entrar-visao {
+  from { opacity: 0; transform: translateY(7px); }
+  to   { opacity: 1; transform: none; }
+}
+
+/* Entrada dos gráficos (as classes são aplicadas por graficos.js) */
+.area-grafico .cresce-x {
+  transform: scaleX(0); transform-box: fill-box; transform-origin: left center;
+  animation: crescer-x .55s cubic-bezier(.2,.7,.3,1) forwards;
+}
+.area-grafico .cresce-y {
+  transform: scaleY(0); transform-box: fill-box; transform-origin: center bottom;
+  animation: crescer-y .55s cubic-bezier(.2,.7,.3,1) forwards;
+}
+.area-grafico .tracar {
+  stroke-dasharray: var(--comp, 600);
+  stroke-dashoffset: var(--comp, 600);
+  animation: tracar .8s ease-out forwards;
+}
+.area-grafico .surgir { opacity: 0; animation: surgir-ponto .3s ease-out forwards; }
+@keyframes crescer-x { to { transform: scaleX(1); } }
+@keyframes crescer-y { to { transform: scaleY(1); } }
+@keyframes tracar { to { stroke-dashoffset: 0; } }
+@keyframes surgir-ponto { to { opacity: 1; } }
+
+.kpi { transition: transform .16s ease, box-shadow .16s ease; }
+.kpi:hover { transform: translateY(-2px); box-shadow: var(--sombra-2); }
+.cartao { transition: box-shadow .18s ease; }

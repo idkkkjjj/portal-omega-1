@@ -141,7 +141,11 @@
       $("#tituloTopo").textContent = item.tituloTopo || item.rotulo;
       visao.scrollTop = 0;
       window.scrollTo({ top: 0 });
+      // Transição suave entre as telas: reinicia a animação de entrada.
+      visao.classList.remove("entrando");
+      void visao.offsetWidth;
       cfg.aoNavegar(item.id, r.args, visao);
+      visao.classList.add("entrando");
     }
 
     global.addEventListener("hashchange", aplicar);

@@ -88,8 +88,8 @@
           tom: est.mediaGeral >= cfg.mediaMinima ? "verde" : "ambar"
         }) +
         Casca.kpi({
-          rotulo: "Média geral abaixo", valor: abaixo, unidade: " (" + fmt.percentual(pctAbaixo) + ")",
-          nota: "de " + est.totalAlunos + " estudantes · " + est.distribuicao.critico + " em situação crítica",
+          rotulo: "Abaixo da média", valor: abaixo, unidade: " (" + fmt.percentual(pctAbaixo) + ")",
+          nota: "na média geral · " + est.distribuicao.critico + " em situação crítica",
           tom: pctAbaixo > 30 ? "rubro" : "ambar"
         }) +
         Casca.kpi({
@@ -127,7 +127,7 @@
       '<div class="grade-2" style="margin-bottom:16px">' +
         Casca.cartao({
           titulo: "Desempenho por etapa de ensino",
-          sub: "Anos Finais e Ensino Médio têm matrizes curriculares diferentes",
+          sub: "Comparativo entre Fundamental e Ensino Médio",
           justo: true,
           corpo: '<table class="tabela"><thead><tr><th>Etapa</th>' +
             '<th class="num">Estudantes</th><th class="num">Média</th>' +
@@ -207,7 +207,7 @@
 
     Graficos.linha($("#gBimestres"), {
       rotulos: ["1º bim.", "2º bim.", "3º bim.", "4º bim."],
-      series: [{ nome: "Média da escola", cor: "#12648f", pontos: est.porBimestre.map(b => b.media) }],
+      series: [{ nome: "Média da escola", cor: "#b17f00", pontos: est.porBimestre.map(b => b.media) }],
       max: cfg.notaMaxima, area: true, altura: 214,
       corte: { valor: cfg.mediaMinima },
       descricao: "Evolução da média geral da escola ao longo dos bimestres"
@@ -288,7 +288,7 @@
 
     visao.innerHTML =
       Casca.cabecalho("Desempenho acadêmico",
-        "Recorte dos indicadores por etapa ou por turma. Escopo atual: " + escopo + ".",
+        "Indicadores por componente, turma e etapa. Exibindo: " + escopo + ".",
         '<button class="btn btn-neutro" id="btnExportarCsv">' + Icone("download") + "<span>Exportar planilha</span></button>") +
 
       '<div class="barra-lancamento">' +
@@ -348,7 +348,7 @@
 
     Graficos.linha($("#gBim2"), {
       rotulos: ["1º bim.", "2º bim.", "3º bim.", "4º bim."],
-      series: [{ nome: escopo, cor: "#5b4b8a", pontos: est.porBimestre.map(b => b.media) }],
+      series: [{ nome: escopo, cor: "#b17f00", pontos: est.porBimestre.map(b => b.media) }],
       max: cfg.notaMaxima, area: true, altura: 268, corte: { valor: cfg.mediaMinima }
     });
 
@@ -422,7 +422,7 @@
     if (!boletimAberto || !Dados.usuario(boletimAberto)) boletimAberto = lista.length ? lista[0].id : null;
 
     visao.innerHTML =
-      Casca.cabecalho("Boletins", "Consulte e corrija lançamentos. Toda alteração fica registrada com autor e horário.",
+      Casca.cabecalho("Boletins", "As alterações ficam registradas com autor, data e valor anterior.",
         (boletimAberto ? '<button class="btn btn-neutro" id="btnImprimir">' + Icone("imprimir") + "<span>Imprimir boletim</span></button>" : "")) +
 
       '<div class="grade-lista">' +
@@ -561,7 +561,7 @@
 
     visao.innerHTML =
       Casca.cabecalho("Quadro docente",
-        "Contas de professor são criadas exclusivamente pela gestão. Cada conta define quais componentes o professor pode lançar.",
+        "Cadastro do corpo docente e vínculo com turmas e componentes.",
         '<button class="btn btn-principal" id="btnNovoProf">' + Icone("mais") + "<span>Cadastrar professor</span></button>") +
 
       Casca.cartao({
@@ -737,7 +737,7 @@
         '<div class="campo largo"><label for="pNome">Nome completo <span class="obrig">*</span></label>' +
           '<input class="entrada" id="pNome" value="' + esc(atual.nome) + '" placeholder="Como consta no documento"></div>' +
         '<div class="campo"><label for="pEmail">E-mail institucional <span class="obrig">*</span></label>' +
-          '<input class="entrada" type="email" id="pEmail" value="' + esc(atual.email) + '" placeholder="nome.sobrenome@escola.edu.br"></div>' +
+          '<input class="entrada" type="email" id="pEmail" value="' + esc(atual.email) + '" placeholder="nome.sobrenome@colegioomega.com.br"></div>' +
         '<div class="campo"><label for="pMatricula">Matrícula funcional</label>' +
           '<input class="entrada" id="pMatricula" value="' + esc(atual.matricula) + '"' + (editando ? " disabled" : "") + "></div>" +
         '<div class="campo"><label for="pTelefone">Telefone</label>' +
@@ -789,7 +789,7 @@
         const email = corpo.querySelector("#pEmail");
         nome.addEventListener("blur", function () {
           if (email.value.trim() || !nome.value.trim()) return;
-          email.value = sugerirEmail(nome.value, "escola.edu.br");
+          email.value = sugerirEmail(nome.value, "colegioomega.com.br");
         });
       },
       acoes: [
@@ -825,7 +825,7 @@
       Dados.criarUsuario(Object.assign({
         papel: "professor", matricula: api.$("#pMatricula").value.trim(), senha: senha
       }, campos), eu.id);
-      N.notificar({ titulo: "Professor cadastrado", texto: nome + " já pode entrar com o e-mail institucional.", tipo: "ok", ms: 5200 });
+      N.notificar({ titulo: "Professor cadastrado", texto: nome + " — matrícula " + (api.$("#pMatricula") ? api.$("#pMatricula").value : "") + ".", tipo: "ok", ms: 5200 });
     }
     N.fecharModal();
     casca.recarregar();
@@ -842,7 +842,7 @@
 
     visao.innerHTML =
       Casca.cabecalho("Estudantes matriculados",
-        "Contas de estudante também são criadas pela gestão. A matrícula é gerada automaticamente.",
+        "Matrículas, turmas e dados de contato dos estudantes.",
         '<button class="btn btn-principal" id="btnNovoAluno">' + Icone("usuarioMais") + "<span>Matricular estudante</span></button>") +
 
       Casca.cartao({
@@ -910,7 +910,7 @@
         '<div class="campo largo"><label for="aNome">Nome completo <span class="obrig">*</span></label>' +
           '<input class="entrada" id="aNome" value="' + esc(atual.nome) + '"></div>' +
         '<div class="campo"><label for="aEmail">E-mail do estudante <span class="obrig">*</span></label>' +
-          '<input class="entrada" type="email" id="aEmail" value="' + esc(atual.email) + '" placeholder="nome.sobrenome@aluno.escola.edu.br"></div>' +
+          '<input class="entrada" type="email" id="aEmail" value="' + esc(atual.email) + '" placeholder="nome.sobrenome@aluno.colegioomega.com.br"></div>' +
         '<div class="campo"><label for="aMatricula">Matrícula</label>' +
           '<input class="entrada" id="aMatricula" value="' + esc(atual.matricula) + '"' + (editando ? " disabled" : "") + "></div>" +
         '<div class="campo"><label for="aTurma">Turma <span class="obrig">*</span></label>' +
@@ -940,7 +940,7 @@
         const email = corpo.querySelector("#aEmail");
         nome.addEventListener("blur", function () {
           if (email.value.trim() || !nome.value.trim()) return;
-          email.value = sugerirEmail(nome.value, "aluno.escola.edu.br");
+          email.value = sugerirEmail(nome.value, "aluno.colegioomega.com.br");
         });
       },
       acoes: [
@@ -1000,7 +1000,7 @@
     const lista = Atividades.ordenarPorUrgencia(Dados.atividades());
     visao.innerHTML =
       Casca.cabecalho("Atividades publicadas",
-        "Tudo que o corpo docente publicou nos murais das turmas. A gestão acompanha, mas quem edita é o professor responsável.") +
+        "Atividades publicadas pelos professores em todas as turmas.") +
 
       '<div class="grade-kpi">' +
         Casca.kpi({ rotulo: "Total publicado", valor: lista.length }) +
@@ -1033,7 +1033,7 @@
 
     visao.innerHTML =
       Casca.cabecalho("Registro de operações",
-        "Histórico das ações feitas no sistema. Serve para conferir quem alterou uma nota e quando.") +
+        "Histórico de lançamentos, alterações e cadastros.") +
 
       Casca.cartao({
         titulo: "Últimos eventos",
@@ -1065,7 +1065,7 @@
     const cfg = c();
     visao.innerHTML =
       Casca.cabecalho("Configurações da escola",
-        "Dados institucionais, regras de avaliação e manutenção da base local.") +
+        "Dados da escola, regras de avaliação e cópia de segurança.") +
 
       '<div class="grade-2">' +
         Casca.cartao({
@@ -1105,7 +1105,7 @@
             "</div>" +
             '<div class="aviso aviso-info topo-8">' + Icone("info") +
             "<div>Abaixo da nota de recuperação a situação é considerada crítica. " +
-            "Estes valores mudam os cálculos de todos os boletins imediatamente.</div></div>",
+            "Os boletins usam estes valores no cálculo da situação.</div></div>",
           rodape: '<button class="btn btn-principal" id="btnSalvarRegras">' + Icone("salvar") + "<span>Salvar regras</span></button>"
         }) +
       "</div>" +
@@ -1130,11 +1130,10 @@
 
       '<div class="topo-20">' + Casca.cartao({
         titulo: "Dados e manutenção",
-        sub: "As informações ficam gravadas apenas neste navegador",
+        sub: "Cópia de segurança e restauração da base",
         corpo:
           '<div class="aviso aviso-alerta" style="margin-bottom:16px">' + Icone("alerta") +
-          "<div><strong>Onde os dados moram</strong>Este sistema não usa servidor: tudo é gravado no armazenamento " +
-          "local do navegador. Limpar os dados de navegação apaga a base. Faça uma cópia antes de apresentar o projeto.</div></div>" +
+          "<div><strong>Sobre os dados</strong>Os dados ficam gravados neste navegador. Limpar o histórico de navegação apaga a base. Mantenha uma cópia de segurança atualizada.</div></div>" +
           '<div class="linha-flex quebra">' +
             '<button class="btn btn-neutro" id="btnBackup">' + Icone("download") + "<span>Baixar cópia de segurança</span></button>" +
             '<button class="btn btn-neutro" id="btnRestaurar">' + Icone("upload") + "<span>Restaurar de um arquivo</span></button>" +

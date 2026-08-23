@@ -11,7 +11,7 @@
   const SVGNS = "http://www.w3.org/2000/svg";
 
   const COR = {
-    marca: "#1b4f9c",
+    marca: "#b17f00",
     verde: "#1c7a4f",
     ambar: "#a86c0c",
     rubro: "#a53225",
@@ -80,6 +80,10 @@
       const largura = Math.max(240, Math.floor(container.clientWidth));
       if (observados.get(container) === largura + "|" + cfg._selo) return;
       observados.set(container, largura + "|" + cfg._selo);
+      // Anima apenas o primeiro desenho; redesenhos por redimensionamento
+      // aparecem prontos para nao piscar.
+      cfg._anim = !container._animou;
+      container._animou = true;
       container.innerHTML = "";
       const svg = desenhista(largura, cfg);
       svg.setAttribute("role", "img");
@@ -151,6 +155,10 @@
         }));
 
         const barra = no("rect", { x: margemEsq, y: y, width: w, height: alturaBarra, rx: 3, fill: cor });
+        if (cfg._anim) {
+          barra.setAttribute("class", "cresce-x");
+          barra.style.animationDelay = Math.min(i * 45, 500) + "ms";
+        }
         svg.appendChild(barra);
 
         const rot = texto(margemEsq - 10, y + alturaBarra / 2 + 4, d.rotulo, {
@@ -221,12 +229,20 @@
         const cor = d.cor || (cfg.corPorValor ? corPorNota(d.valor, cfg.corte && cfg.corte.valor) : COR.marca);
 
         if (d.valor !== null) {
-          svg.appendChild(no("rect", {
+          const barraV = no("rect", {
             x: cx - largBarra / 2, y: y, width: largBarra, height: h, rx: 3, fill: cor
-          }));
-          svg.appendChild(texto(cx, y - 6, cfg.formato ? cfg.formato(d.valor) : fmtN(d.valor), {
+          });
+          const rotuloV = texto(cx, y - 6, cfg.formato ? cfg.formato(d.valor) : fmtN(d.valor), {
             "text-anchor": "middle", "font-size": "11", "font-weight": "700", fill: "#17242f"
-          }));
+          });
+          if (cfg._anim) {
+            barraV.setAttribute("class", "cresce-y");
+            barraV.style.animationDelay = Math.min(i * 55, 500) + "ms";
+            rotuloV.setAttribute("class", "surgir");
+            rotuloV.style.animationDelay = Math.min(i * 55 + 320, 820) + "ms";
+          }
+          svg.appendChild(barraV);
+          svg.appendChild(rotuloV);
         } else {
           svg.appendChild(no("rect", {
             x: cx - largBarra / 2, y: margem.topo + areaA - 3, width: largBarra, height: 3,
@@ -312,13 +328,26 @@
 
         let linhaD = "";
         pts.forEach(function (p, i) { linhaD += (i ? " L" : "M") + p.x + "," + p.y; });
-        svg.appendChild(no("path", {
+        const caminhoLinha = no("path", {
           d: linhaD, fill: "none", stroke: cor, "stroke-width": 2.2,
           "stroke-linecap": "round", "stroke-linejoin": "round"
-        }));
+        });
+        if (cfg._anim) {
+          try {
+            const comp = Math.ceil(caminhoLinha.getTotalLength());
+            caminhoLinha.style.setProperty("--comp", comp);
+            caminhoLinha.setAttribute("class", "tracar");
+          } catch (e) { /* navegador sem suporte: fica estatico */ }
+        }
+        svg.appendChild(caminhoLinha);
 
-        pts.forEach(function (p) {
-          svg.appendChild(no("circle", { cx: p.x, cy: p.y, r: 4.2, fill: "#fff", stroke: cor, "stroke-width": 2.2 }));
+        pts.forEach(function (p, iP) {
+          const ponto = no("circle", { cx: p.x, cy: p.y, r: 4.2, fill: "#fff", stroke: cor, "stroke-width": 2.2 });
+          if (cfg._anim) {
+            ponto.setAttribute("class", "surgir");
+            ponto.style.animationDelay = (200 + iP * 120) + "ms";
+          }
+          svg.appendChild(ponto);
           const alvo = no("circle", { cx: p.x, cy: p.y, r: 14, fill: "transparent" });
           ligarBalao(alvo, "<b>" + (serie.nome || "") + "</b><br>" + p.rotulo + ": " + fmtN(p.v));
           svg.appendChild(alvo);
@@ -365,6 +394,13 @@
             d: "M" + x1 + "," + y1 + " A" + r + "," + r + " 0 " + grande + " 1 " + x2 + "," + y2,
             fill: "none", stroke: d.cor, "stroke-width": esp
           });
+        }
+        if (cfg._anim) {
+          try {
+            const compFatia = Math.ceil(caminho.getTotalLength ? caminho.getTotalLength() : 2 * Math.PI * r);
+            caminho.style.setProperty("--comp", compFatia);
+            caminho.setAttribute("class", "tracar");
+          } catch (e) { /* sem suporte */ }
         }
         ligarBalao(caminho, "<b>" + d.rotulo + "</b><br>" + d.valor + " (" +
           fmtN((d.valor / total) * 100, 0) + "%)");

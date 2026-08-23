@@ -3,11 +3,11 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Portal Ômega — Sistema Acadêmico do Colégio Ômega</title>
-<meta name="description" content="Portal acadêmico do Colégio Ômega (Aracaju/SE): cadastro de professores e estudantes, diário de classe, boletim em tempo real, mural de atividades e indicadores para a gestão. Anos Finais e Ensino Médio.">
-<meta name="theme-color" content="#101f38">
-<meta property="og:title" content="Portal Ômega — Sistema Acadêmico do Colégio Ômega">
-<meta property="og:description" content="Gestão, corpo docente e estudantes na mesma plataforma. Boletim atualizado em tempo real e indicadores por componente curricular.">
+<title>Portal Ômega — Colégio Ômega, Aracaju/SE</title>
+<meta name="description" content="Portal acadêmico do Colégio Ômega: boletim online, lançamento de notas e atividades das turmas do 6º ano à 3ª série.">
+<meta name="theme-color" content="#17181c">
+<meta property="og:title" content="Portal Ômega — Colégio Ômega">
+<meta property="og:description" content="Boletim online, lançamento de notas e atividades das turmas. Acesso para alunos, professores e coordenação.">
 <meta property="og:type" content="website">
 <link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
 <link rel="stylesheet" href="assets/css/base.css">
@@ -21,51 +21,49 @@
     <a class="marca-portal" href="index.html">
       <span class="escudo">
         <svg class="marca-omega" viewBox="0 0 64 64" fill="none" aria-hidden="true">
-          <path d="M18 45h10v-4a14 14 0 1 1 8 0v4h10" stroke="currentColor" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+          <ellipse cx="32" cy="34" rx="27" ry="14.5" transform="rotate(-14 32 34)" stroke="#f6b100" stroke-width="5"/>
+          <path d="M22 41h7v-3a10.5 10.5 0 1 1 6 0v3h7" stroke="currentColor" stroke-width="4.6" stroke-linecap="round" stroke-linejoin="round"/>
         </svg>
       </span>
       <span class="txt"><b>Portal Ômega</b><small>Colégio Ômega · Aracaju</small></span>
     </a>
     <nav class="nav-portal">
-      <a href="#perfis">Perfis de acesso</a>
-      <a href="#funcionamento">Como funciona</a>
       <a href="#recursos">Recursos</a>
+      <a href="#funcionamento">Como funciona</a>
       <a href="#escola">A escola</a>
     </nav>
-    <a class="btn btn-principal" href="#acesso" style="margin-left:auto">Entrar no portal</a>
+    <a class="btn btn-principal" href="#acesso" style="margin-left:auto">Entrar</a>
   </div>
 </header>
 
 <!-- ====================================================== Abertura ==== -->
 <section class="abertura">
   <div class="envelope">
-    <div>
-      <span class="tarja"><b>Colégio Ômega</b> Aracaju/SE · Anos Finais e Ensino Médio</span>
-      <h1>A secretaria, a sala de aula e o boletim do estudante <em>no mesmo lugar</em>.</h1>
+    <div class="entrada-hero">
+      <span class="tarja"><b>Colégio Ômega</b> Aracaju/SE</span>
+      <h1>O portal acadêmico do <em>Colégio Ômega</em>.</h1>
       <p class="chamada">
-        Há 29 anos o Ômega abre portas para o conhecimento. O Portal Ômega organiza o que
-        hoje vive espalhado em cadernetas, planilhas e grupos de mensagem: a gestão cadastra
-        o quadro docente e acompanha os indicadores, o professor lança as notas e publica as
-        atividades, e o estudante vê tudo no mesmo instante em que é registrado.
+        O aluno acompanha o boletim, o professor lança as notas e a coordenação
+        acompanha os resultados. Cada um entra com a própria conta e vê a sua área.
       </p>
       <div class="botoes">
-        <a class="btn btn-principal btn-g" href="#acesso">Acessar o portal</a>
-        <a class="btn btn-neutro btn-g" href="#funcionamento">Ver como funciona</a>
+        <a class="btn btn-principal btn-g" href="#acesso">Entrar no portal</a>
+        <a class="btn btn-neutro btn-g" href="#funcionamento">Como funciona</a>
       </div>
 
       <div class="tiras">
-        <div class="t"><div class="n">29</div><div class="d">anos de escola</div></div>
-        <div class="t"><div class="n">7</div><div class="d">turmas</div></div>
-        <div class="t"><div class="n">4</div><div class="d">bimestres</div></div>
-        <div class="t"><div class="n">6,0</div><div class="d">média mínima</div></div>
+        <div class="t"><div class="n" data-contar="29">0</div><div class="d">anos de história</div></div>
+        <div class="t"><div class="n" data-contar="7">0</div><div class="d">turmas no portal</div></div>
+        <div class="t"><div class="n" data-contar="4">0</div><div class="d">bimestres</div></div>
+        <div class="t"><div class="n">6,0</div><div class="d">média para aprovação</div></div>
       </div>
     </div>
 
-    <!-- Prévia estática do boletim, só para ilustrar a tela real -->
+    <!-- Prévia do boletim, com os mesmos estilos da tela real -->
     <div class="maquete" aria-hidden="true">
       <div class="maq-topo">
         <i></i><i></i><i></i>
-        <span>Boletim · 2ª série EM · Colégio Ômega</span>
+        <span>Boletim · 2ª série EM</span>
       </div>
       <div class="maq-corpo">
         <div class="maq-linha cab">
@@ -104,58 +102,55 @@
 <!-- ======================================================== Perfis ==== -->
 <section class="secao" id="perfis">
   <div class="envelope">
-    <div class="cabeca-secao">
-      <div class="olho">Quem usa o portal</div>
-      <h2>Três perfis, cada um com a sua tela</h2>
-      <p>
-        O acesso é definido no cadastro. Ninguém precisa aprender uma tela que não vai usar:
-        cada perfil entra direto no que é da sua responsabilidade.
-      </p>
+    <div class="cabeca-secao rev">
+      <div class="olho">Perfis de acesso</div>
+      <h2>Uma área para cada perfil</h2>
+      <p>O tipo de conta define o que aparece depois do login.</p>
     </div>
 
     <div class="perfis">
-      <article class="perfil gestor">
+      <article class="perfil gestor rev">
         <div class="emblema" aria-hidden="true">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18"/><path d="M5 21V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v16"/><path d="M9 7h2M13 7h2M9 11h2M13 11h2M9 15h2M13 15h2"/></svg>
         </div>
-        <div class="papel-nome">Perfil 01</div>
+        <div class="papel-nome">Coordenação</div>
         <h3>Gestão escolar</h3>
         <ul>
-          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Cadastra as contas de professores e define os componentes de cada um</li>
-          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Matricula estudantes e distribui as turmas do 6º ano à 3ª série</li>
-          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Abre o boletim de qualquer estudante e corrige notas quando necessário</li>
-          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Compara médias por componente, por turma e por etapa em gráficos</li>
-          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Consulta a ficha de cada conta docente e o histórico de alterações</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Cadastro de professores e alunos</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Boletins de todas as turmas, com correção de notas</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Gráficos de desempenho por componente, turma e etapa</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Histórico de alterações de notas</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Configurações da escola e cópia de segurança</li>
         </ul>
       </article>
 
-      <article class="perfil docente">
+      <article class="perfil docente rev">
         <div class="emblema" aria-hidden="true">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10 12 5 2 10l10 5 10-5z"/><path d="M6 12v5c0 1.66 2.69 3 6 3s6-1.34 6-3v-5"/></svg>
         </div>
-        <div class="papel-nome">Perfil 02</div>
+        <div class="papel-nome">Professores</div>
         <h3>Corpo docente</h3>
         <ul>
-          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Diário de classe com todos os estudantes da turma e os quatro bimestres</li>
-          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Lançamento em lote, com média e situação calculadas na hora</li>
-          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>O sistema só oferece os componentes que ele leciona naquela turma</li>
-          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Publica atividades com prazo, prioridade, pontuação e anexos</li>
-          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Vê quantos estudantes já marcaram cada atividade como entregue</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Diário de classe das suas turmas</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Lançamento de notas por bimestre</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Publicação de atividades com prazo e anexos</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Acompanhamento de quem já entregou</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Alunos abaixo da média nos seus componentes</li>
         </ul>
       </article>
 
-      <article class="perfil aluno">
+      <article class="perfil aluno rev">
         <div class="emblema" aria-hidden="true">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
         </div>
-        <div class="papel-nome">Perfil 03</div>
+        <div class="papel-nome">Alunos</div>
         <h3>Estudante</h3>
         <ul>
-          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Boletim atualizado no mesmo instante em que o professor lança a nota</li>
-          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Média parcial mesmo com bimestres ainda em aberto</li>
-          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Quanto falta somar para fechar o ano na média em cada componente</li>
-          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Mural com todas as atividades da turma, ordenadas por urgência</li>
-          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Marca o que já entregou e enxerga o que está atrasado</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Boletim com as médias parciais</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Aviso quando uma nota é lançada</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Atividades da turma por data de entrega</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Marcação das atividades já entregues</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Impressão do boletim</li>
         </ul>
       </article>
     </div>
@@ -165,47 +160,27 @@
 <!-- =================================================== Funcionamento == -->
 <section class="secao alterna" id="funcionamento">
   <div class="envelope">
-    <div class="cabeca-secao">
-      <div class="olho">Fluxo de trabalho</div>
-      <h2>Do cadastro ao boletim, em quatro etapas</h2>
-      <p>
-        A ordem importa: sem conta cadastrada não existe lançamento, e sem lançamento
-        não existe boletim. O portal segue exatamente essa cadeia.
-      </p>
+    <div class="cabeca-secao rev">
+      <div class="olho">Passo a passo</div>
+      <h2>Como funciona</h2>
     </div>
 
     <div class="passos">
-      <div class="passo">
-        <h4>A gestão abre as contas</h4>
-        <p>
-          A direção cadastra cada professor informando nome, e-mail institucional, formação,
-          turmas e os componentes que ele leciona. Faz o mesmo com os estudantes, indicando a
-          turma. A senha inicial é definida na hora e trocada pela pessoa no primeiro acesso.
-        </p>
+      <div class="passo rev">
+        <h4>Cadastro das contas</h4>
+        <p>A secretaria cadastra professores e alunos e monta as turmas. Cada pessoa recebe um login e uma senha inicial.</p>
       </div>
-      <div class="passo">
-        <h4>O professor lança as notas</h4>
-        <p>
-          Ao entrar, o professor escolhe turma e componente e recebe o diário pronto, com
-          todos os estudantes e as quatro colunas bimestrais. Digita as notas, confere a média
-          calculada ao lado e salva tudo de uma vez.
-        </p>
+      <div class="passo rev">
+        <h4>Lançamento de notas</h4>
+        <p>O professor abre o diário da turma e lança as notas do bimestre. A média é calculada na hora.</p>
       </div>
-      <div class="passo">
-        <h4>O estudante recebe na hora</h4>
-        <p>
-          Não existe espera nem fechamento de bimestre para ver a nota. Assim que o
-          lançamento é salvo, o boletim muda sozinho e o estudante recebe um aviso indicando
-          qual componente foi atualizado.
-        </p>
+      <div class="passo rev">
+        <h4>Consulta do boletim</h4>
+        <p>O aluno vê a nota assim que ela é lançada, com a média parcial de cada componente.</p>
       </div>
-      <div class="passo">
-        <h4>A gestão acompanha o todo</h4>
-        <p>
-          O painel da direção consolida tudo: média da escola, comparativo entre Anos Finais
-          e Ensino Médio, evolução bimestre a bimestre, turmas com mais estudantes em risco e
-          a lista nominal de quem precisa de recuperação.
-        </p>
+      <div class="passo rev">
+        <h4>Acompanhamento</h4>
+        <p>A coordenação acompanha os resultados por turma e por componente e identifica quem precisa de reforço.</p>
       </div>
     </div>
   </div>
@@ -214,73 +189,73 @@
 <!-- ====================================================== Recursos ==== -->
 <section class="secao" id="recursos">
   <div class="envelope">
-    <div class="cabeca-secao">
-      <div class="olho">O que está pronto</div>
-      <h2>Recursos incluídos nesta versão</h2>
+    <div class="cabeca-secao rev">
+      <div class="olho">Recursos</div>
+      <h2>O que o portal oferece</h2>
     </div>
 
     <div class="recursos">
-      <div class="recurso">
+      <div class="recurso rev">
         <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="20" x2="12" y2="10"/><line x1="18" y1="20" x2="18" y2="4"/><line x1="6" y1="20" x2="6" y2="16"/></svg></div>
         <div>
-          <h4>Indicadores em gráfico</h4>
-          <p>Média por componente com linha de corte em 6,0, distribuição de situação, evolução por bimestre e comparativo entre turmas e etapas.</p>
+          <h4>Gráficos de desempenho</h4>
+          <p>Médias por componente, por turma, por etapa e por bimestre.</p>
         </div>
       </div>
-      <div class="recurso">
+      <div class="recurso rev">
         <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div>
         <div>
-          <h4>Atualização em tempo real</h4>
-          <p>As telas abertas conversam entre si. O que o professor salva aparece no boletim do estudante sem recarregar a página.</p>
+          <h4>Atualização automática</h4>
+          <p>A nota lançada pelo professor aparece na hora na tela do aluno.</p>
         </div>
       </div>
-      <div class="recurso">
+      <div class="recurso rev">
         <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg></div>
         <div>
-          <h4>Duas matrizes curriculares</h4>
-          <p>Anos Finais e Ensino Médio têm componentes diferentes. O boletim, o diário e os relatórios respeitam a matriz de cada turma automaticamente.</p>
+          <h4>Fundamental e Médio</h4>
+          <p>Cada etapa tem a própria grade curricular no boletim.</p>
         </div>
       </div>
-      <div class="recurso">
+      <div class="recurso rev">
         <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21.44 11.05l-9.19 9.19a6 6 0 0 1-8.49-8.49l9.19-9.19a4 4 0 0 1 5.66 5.66l-9.2 9.19a2 2 0 0 1-2.83-2.83l8.49-8.48"/></svg></div>
         <div>
-          <h4>Atividades com anexo</h4>
-          <p>Título, descrição, data de entrega, prioridade, valor em pontos, link externo e imagens anexadas direto no mural da turma.</p>
+          <h4>Atividades com anexos</h4>
+          <p>Enunciado, data de entrega, pontuação, links e imagens.</p>
         </div>
       </div>
-      <div class="recurso">
+      <div class="recurso rev">
         <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg></div>
         <div>
-          <h4>Boletim para impressão</h4>
-          <p>Layout próprio de impressão, com o timbre do Ômega, endereço, código INEP, dados do estudante e espaço para as assinaturas.</p>
+          <h4>Boletim para imprimir</h4>
+          <p>Modelo com o timbre da escola e espaço para assinaturas.</p>
         </div>
       </div>
-      <div class="recurso">
+      <div class="recurso rev">
         <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg></div>
         <div>
-          <h4>Registro de alterações</h4>
-          <p>Toda nota alterada fica registrada com autor, data e valor anterior. A gestão consulta o histórico quando precisa justificar uma correção.</p>
+          <h4>Histórico de notas</h4>
+          <p>Registro de quem lançou ou alterou cada nota, e quando.</p>
         </div>
       </div>
-      <div class="recurso">
+      <div class="recurso rev">
         <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg></div>
         <div>
           <h4>Acesso assistido</h4>
-          <p>A direção pode abrir o portal com a conta de um professor ou estudante para conferir o que a pessoa está vendo — sempre com aviso na tela e registro.</p>
+          <p>A coordenação pode ver o portal como um professor ou aluno.</p>
         </div>
       </div>
-      <div class="recurso">
+      <div class="recurso rev">
         <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg></div>
         <div>
-          <h4>Planilha e cópia de segurança</h4>
-          <p>Exportação dos boletins em CSV para abrir no Excel e backup completo da base num arquivo, para restaurar quando precisar.</p>
+          <h4>Exportação para Excel</h4>
+          <p>Planilha com as notas de todas as turmas.</p>
         </div>
       </div>
-      <div class="recurso">
-        <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></div>
+      <div class="recurso rev">
+        <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg></div>
         <div>
-          <h4>Cada perfil vê o que é seu</h4>
-          <p>O professor só enxerga as próprias turmas e componentes; o estudante, apenas o próprio boletim. A gestão é o único perfil com visão completa.</p>
+          <h4>Cópia de segurança</h4>
+          <p>Backup completo dos dados em um arquivo.</p>
         </div>
       </div>
     </div>
@@ -290,59 +265,46 @@
 <!-- ======================================================== A escola == -->
 <section class="secao alterna" id="escola">
   <div class="envelope">
-    <div class="cabeca-secao">
-      <div class="olho">Feito sob medida</div>
-      <h2>Configurado com os dados do Colégio Ômega</h2>
+    <div class="cabeca-secao rev">
+      <div class="olho">A escola</div>
+      <h2>Colégio Ômega</h2>
       <p>
-        O portal já nasce com a identificação da escola, a estrutura de turmas e as matrizes
-        curriculares do 6º ano à 3ª série. Nada de tela genérica: o timbre do boletim, o
-        cabeçalho do sistema e os relatórios saem com os dados do Ômega.
+        Fundado em 14 de novembro de 1996, no bairro Santos Dumont, em Aracaju.
+        Atende do Maternal ao Ensino Médio.
       </p>
     </div>
 
-    <div class="recursos">
-      <div class="recurso">
-        <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18"/><path d="M5 21V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v16"/><path d="M9 7h2M13 7h2M9 11h2M13 11h2"/></svg></div>
-        <div>
-          <h4>Endereço</h4>
-          <p>Rua Sargento Brasiliano, 472 — Santos Dumont<br>Aracaju/SE · CEP 49087-580</p>
-        </div>
+    <div class="escola-grade">
+      <div class="cartao-logo rev">
+        <img src="assets/img/logo-colegio-omega.jpg" alt="Logotipo do Colégio Ômega" width="607" height="596">
       </div>
-      <div class="recurso">
-        <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></svg></div>
+
+      <dl class="ficha-escola rev">
         <div>
-          <h4>Contato</h4>
-          <p>(79) 3245-2017<br><a href="https://www.instagram.com/colegioomegaaracaju/" target="_blank" rel="noopener">@colegioomegaaracaju</a></p>
+          <dt>Endereço</dt>
+          <dd>Rua Sargento Brasiliano, 472<br>Santos Dumont — Aracaju/SE<br>CEP 49087-580</dd>
         </div>
-      </div>
-      <div class="recurso">
-        <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"/><polyline points="13 2 13 9 20 9"/></svg></div>
         <div>
-          <h4>Registro</h4>
-          <p>Código INEP 28031350<br>Rede privada · fundado em 14/11/1996</p>
+          <dt>Telefone</dt>
+          <dd>(79) 3245-2017</dd>
         </div>
-      </div>
-      <div class="recurso">
-        <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10 12 5 2 10l10 5 10-5z"/><path d="M6 12v5c0 1.66 2.69 3 6 3s6-1.34 6-3v-5"/></svg></div>
         <div>
-          <h4>Etapas no portal</h4>
-          <p>Anos Finais do Fundamental (6º ao 9º) e Ensino Médio (1ª a 3ª série), que são as etapas com boletim bimestral.</p>
+          <dt>Instagram</dt>
+          <dd><a href="https://www.instagram.com/colegioomegaaracaju/" target="_blank" rel="noopener">@colegioomegaaracaju</a></dd>
         </div>
-      </div>
-      <div class="recurso">
-        <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg></div>
         <div>
-          <h4>Regra de avaliação</h4>
-          <p>Média mínima 6,0 sobre quatro bimestres, recuperação a partir de 4,0. Os valores são editáveis pela direção.</p>
+          <dt>Registro</dt>
+          <dd>Código INEP 28031350<br>Rede privada</dd>
         </div>
-      </div>
-      <div class="recurso">
-        <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
         <div>
-          <h4>Sem itinerários no boletim</h4>
-          <p>No Ensino Médio entram apenas os 12 componentes da Formação Geral Básica. Itinerários formativos não geram nota.</p>
+          <dt>Turmas no portal</dt>
+          <dd>6º ao 9º ano do Fundamental<br>1ª a 3ª série do Ensino Médio</dd>
         </div>
-      </div>
+        <div>
+          <dt>Avaliação</dt>
+          <dd>Média para aprovação: 6,0<br>Recuperação a partir de 4,0</dd>
+        </div>
+      </dl>
     </div>
   </div>
 </section>
@@ -350,27 +312,26 @@
 <!-- ======================================================== Acesso ===== -->
 <section class="secao-acesso" id="acesso">
   <div class="envelope">
-    <div>
+    <div class="rev">
       <h2>Entrar no portal</h2>
       <p class="texto">
-        Selecione o seu perfil e informe o e-mail institucional ou a matrícula.
-        Se você ainda não tem conta, procure a secretaria do Ômega: todo acesso é criado
-        pela gestão escolar.
+        Use o e-mail institucional ou o número de matrícula. As contas são criadas
+        pela secretaria da escola.
       </p>
 
       <div style="margin-top:26px">
-        <div class="olho" style="color:#9db9e8;font-size:.72rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase">
-          Contas de demonstração
+        <div class="olho" style="color:#ecc95e;font-size:.72rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase">
+          Contas para demonstração
         </div>
         <ul class="lista-conta" id="contasDemo"></ul>
         <p class="pequeno" style="color:rgba(255,255,255,.5);margin-top:14px">
-          Use os atalhos abaixo do formulário para preencher qualquer uma delas com um clique.
-          Para ver o boletim atualizando ao vivo, abra o professor numa aba e o estudante em outra.
+          Este é um ambiente de demonstração. Os botões abaixo do formulário
+          preenchem o login de cada perfil.
         </p>
       </div>
     </div>
 
-    <div class="painel-entrada">
+    <div class="painel-entrada rev">
       <h3>Identificação</h3>
       <p class="sub">Escolha o perfil e informe suas credenciais.</p>
 
@@ -381,7 +342,7 @@
             <label>
               <input type="radio" name="perfil" value="aluno" checked>
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
-              Estudante
+              Aluno
             </label>
             <label>
               <input type="radio" name="perfil" value="professor">
@@ -391,13 +352,13 @@
             <label>
               <input type="radio" name="perfil" value="gestor">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18"/><path d="M5 21V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v16"/><path d="M9 7h2M13 7h2M9 11h2"/></svg>
-              Gestor
+              Gestão
             </label>
           </div>
         </fieldset>
 
         <div class="campo">
-          <label for="identificador">E-mail institucional ou matrícula</label>
+          <label for="identificador">E-mail ou matrícula</label>
           <input class="entrada" type="text" id="identificador" name="identificador"
                  autocomplete="username" placeholder="nome.sobrenome@colegioomega.com.br" required>
         </div>
@@ -418,11 +379,11 @@
       </form>
 
       <div class="rodape-form">
-        <div class="pequeno texto-3" style="margin-bottom:8px">Preencher automaticamente:</div>
+        <div class="pequeno texto-3" style="margin-bottom:8px">Preencher com uma conta de demonstração:</div>
         <div class="filtros" style="justify-content:center">
           <button type="button" class="chip" data-demo="gestor">Gestão</button>
           <button type="button" class="chip" data-demo="professor">Professor</button>
-          <button type="button" class="chip" data-demo="aluno">Estudante</button>
+          <button type="button" class="chip" data-demo="aluno">Aluno</button>
         </div>
       </div>
     </div>
@@ -436,24 +397,23 @@
       <div class="marca-rodape">
         <span class="escudo">
           <svg class="marca-omega" viewBox="0 0 64 64" fill="none" aria-hidden="true">
-            <path d="M18 45h10v-4a14 14 0 1 1 8 0v4h10" stroke="#ffffff" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+            <ellipse cx="32" cy="34" rx="27" ry="14.5" transform="rotate(-14 32 34)" stroke="#f6b100" stroke-width="5"/>
+            <path d="M22 41h7v-3a10.5 10.5 0 1 1 6 0v3h7" stroke="#ffffff" stroke-width="4.6" stroke-linecap="round" stroke-linejoin="round"/>
           </svg>
         </span>
         <b>Portal Ômega</b>
       </div>
-      <p style="max-width:400px;line-height:1.6">
-        Sistema acadêmico escrito em HTML, CSS e JavaScript puro, sem dependências externas,
-        configurado com os dados públicos do Colégio Ômega — Aracaju/SE.
+      <p style="max-width:380px;line-height:1.6">
+        Sistema acadêmico do Colégio Ômega, desenvolvido em HTML, CSS e JavaScript.
       </p>
     </div>
     <div>
-      <h5>Navegação</h5>
+      <h5>Portal</h5>
       <ul>
-        <li><a href="#perfis">Perfis de acesso</a></li>
-        <li><a href="#funcionamento">Como funciona</a></li>
         <li><a href="#recursos">Recursos</a></li>
+        <li><a href="#funcionamento">Como funciona</a></li>
         <li><a href="#escola">A escola</a></li>
-        <li><a href="#acesso">Entrar no portal</a></li>
+        <li><a href="#acesso">Entrar</a></li>
       </ul>
     </div>
     <div>
@@ -467,8 +427,8 @@
     </div>
     <div class="fino" style="grid-column:1/-1">
       <span>
-        Projeto acadêmico independente, sem vínculo oficial com a instituição.
-        Os dados de pessoas são fictícios e ficam apenas neste navegador.
+        Projeto de demonstração, sem vínculo oficial com a instituição.
+        Os alunos e professores exibidos são fictícios.
         <a href="#" id="zerarBase">Restaurar dados de demonstração</a>
       </span>
       <span id="rodapeAno"></span>

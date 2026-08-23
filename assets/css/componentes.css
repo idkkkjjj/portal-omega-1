@@ -24,7 +24,7 @@
 .btn-principal {
   background: var(--marca);
   border-color: var(--marca);
-  color: #fff;
+  color: var(--sobre-marca);
   box-shadow: var(--sombra-1);
 }
 .btn-principal:hover { background: var(--marca-escura); border-color: var(--marca-escura); }
@@ -88,7 +88,7 @@
 .entrada:focus, .selecao:focus, .area:focus {
   outline: 0;
   border-color: var(--marca);
-  box-shadow: 0 0 0 3px rgba(27,79,156,.15);
+  box-shadow: 0 0 0 3px rgba(246,177,0,.24);
 }
 .entrada::placeholder, .area::placeholder { color: var(--texto-3); }
 .entrada:disabled, .selecao:disabled { background: #f0f2f4; color: var(--texto-2); cursor: not-allowed; }
@@ -140,7 +140,7 @@
   font-family: var(--fonte-num); font-size: .89rem; font-weight: 600;
   background: var(--branco);
 }
-.nota-in:focus { outline: 0; border-color: var(--marca); box-shadow: 0 0 0 3px rgba(27,79,156,.15); }
+.nota-in:focus { outline: 0; border-color: var(--marca); box-shadow: 0 0 0 3px rgba(246,177,0,.24); }
 .nota-in.alterada { border-color: var(--ambar); background: var(--ambar-claro); }
 .nota-in.baixa { color: var(--rubro); }
 .nota-in.boa { color: var(--verde); }
@@ -177,7 +177,7 @@
 .selo-verde  { background: var(--verde-claro); color: #14603c; border-color: #c6e3d3; }
 .selo-ambar  { background: var(--ambar-claro); color: #7f5209; border-color: #efdcb4; }
 .selo-rubro  { background: var(--rubro-claro); color: #8b2a1f; border-color: #eecac4; }
-.selo-azul   { background: var(--marca-clara); color: #143c78; border-color: #c9d8f0; }
+.selo-azul   { background: #e9eef5; color: #33517a; border-color: #d3dde9; }
 .selo-cinza  { background: #eef1f3; color: var(--texto-2); border-color: #dde2e7; }
 .selo-roxo   { background: #eeecf6; color: #453a6b; border-color: #d7d1e9; }
 
@@ -230,14 +230,14 @@
 }
 .aviso svg { width: 17px; height: 17px; flex: none; margin-top: 2px; }
 .aviso strong { display: block; }
-.aviso-info  { background: var(--marca-clara); border-color: #c9d8f0; color: #143050; }
+.aviso-info  { background: #eef2f7; border-color: #d3dde9; color: #33517a; }
 .aviso-ok    { background: var(--verde-claro); border-color: #c6e3d3; color: #14603c; }
 .aviso-alerta{ background: var(--ambar-claro); border-color: #efdcb4; color: #754c08; }
 .aviso-erro  { background: var(--rubro-claro); border-color: #eecac4; color: #8b2a1f; }
 
 /* ---------------------------------------------------------- Progresso ---- */
 .barra { position: relative; height: 6px; border-radius: 4px; background: #e5e9ed; overflow: hidden; }
-.barra > span { display: block; height: 100%; border-radius: 4px; background: var(--marca); transition: width .35s ease; }
+.barra > span { display: block; height: 100%; border-radius: 4px; background: var(--enlace); transition: width .35s ease; }
 .barra.verde > span { background: var(--verde); }
 .barra.ambar > span { background: var(--ambar); }
 .barra.rubro > span { background: var(--rubro); }
@@ -251,12 +251,12 @@
   border-bottom: 2px solid transparent; margin-bottom: -1px; white-space: nowrap;
 }
 .abas button:hover { color: var(--texto); }
-.abas button[aria-selected="true"] { color: var(--marca); border-bottom-color: var(--marca); }
+.abas button[aria-selected="true"] { color: var(--enlace); border-bottom-color: var(--marca); }
 
 /* --------------------------------------------------------------- Modal --- */
 .fundo-modal {
   position: fixed; inset: 0; z-index: 200;
-  background: rgba(16,31,56,.5);
+  background: rgba(23,24,28,.55);
   display: flex; align-items: flex-start; justify-content: center;
   padding: 40px 16px; overflow-y: auto;
   animation: aparecer .14s ease-out;
@@ -313,9 +313,9 @@
 .avatar {
   display: inline-flex; align-items: center; justify-content: center;
   width: 34px; height: 34px; flex: none;
-  border-radius: 50%; background: var(--marca-clara); color: var(--marca-escura);
+  border-radius: 50%; background: var(--marca-clara); color: var(--enlace);
   font-size: .78rem; font-weight: 700; letter-spacing: .02em;
-  border: 1px solid #c9d8f0;
+  border: 1px solid #f0dfa6;
 }
 .avatar.g { width: 46px; height: 46px; font-size: .98rem; }
 .avatar.p { width: 27px; height: 27px; font-size: .68rem; }

@@ -212,7 +212,7 @@
                   '<td class="num pequeno">' + feitas + "/" + total + "<br>" +
                   '<span class="texto-3">entregues</span></td></tr>';
               }).join("") + "</tbody></table>"
-            : Casca.vazio("Nada em aberto", "Publique uma atividade para a turma acompanhar o prazo.", "prancheta")
+            : Casca.vazio("Nada em aberto", "Nenhuma atividade sua com prazo em aberto.", "prancheta")
         }) +
       "</div>";
 
@@ -311,7 +311,7 @@
     const bimAtual = cfg.bimestreAtual;
     return '<div class="rolagem-x"><table class="tabela tabela-fixa">' +
       '<thead><tr><th style="min-width:230px">Estudante</th>' +
-      [1, 2, 3, 4].map(b => '<th class="centro"' + (b === bimAtual ? ' style="background:#e7f0f6;color:#0d4d70"' : "") + ">" +
+      [1, 2, 3, 4].map(b => '<th class="centro"' + (b === bimAtual ? ' style="background:var(--marca-clara);color:var(--enlace)"' : "") + ">" +
         b + "º bim." + (b === bimAtual ? " ●" : "") + "</th>").join("") +
       '<th class="centro">Média</th><th>Situação</th></tr></thead><tbody>' +
       alunos.map(function (a, i) {
@@ -463,7 +463,7 @@
     N.notificar({
       titulo: "Diário salvo",
       texto: [novas ? novas + " novas" : "", alteradas ? alteradas + " alteradas" : "", removidas ? removidas + " removidas" : ""]
-        .filter(Boolean).join(" · ") + " — os estudantes já estão vendo.",
+        .filter(Boolean).join(" · ") + ".",
       tipo: "ok", ms: 5000
     });
     telaDiario(visao);
@@ -484,8 +484,7 @@
       subtitulo: Dados.turma(sel.turma).nome + " · " + Dados.disciplina(sel.disciplina).nome,
       largura: "estreito",
       conteudo:
-        '<p class="medio texto-2">Aplica o mesmo valor a todos os estudantes da turma no bimestre escolhido. ' +
-        "Útil para atribuir uma nota base antes dos ajustes individuais.</p>" +
+        '<p class="medio texto-2">Aplica a mesma nota a todos os estudantes da turma no bimestre escolhido.</p>' +
         '<div class="grade-campos topo-14">' +
           '<div class="campo"><label for="pcBim">Bimestre</label><select class="selecao" id="pcBim">' +
             [1, 2, 3, 4].map(b => '<option value="' + b + '"' + (b === cfg.bimestreAtual ? " selected" : "") + ">" + b + "º bimestre</option>").join("") +
@@ -527,7 +526,7 @@
 
     visao.innerHTML =
       Casca.cabecalho("Minhas atividades",
-        "Tudo que você publica aparece na hora no mural dos estudantes da turma.",
+        "Atividades das suas turmas, com prazo, pontuação e anexos.",
         '<button class="btn btn-principal" id="btnNovaAtv">' + Icone("mais") + "<span>Nova atividade</span></button>") +
 
       '<div class="barra-lancamento">' +
@@ -544,7 +543,7 @@
       (lista.length
         ? '<div class="lista-atividades">' + lista.map(a => Atividades.cartao(a, { modo: "professor" })).join("") + "</div>"
         : '<section class="cartao">' + Casca.vazio("Nenhuma atividade publicada",
-            "Use o botão “Nova atividade” para criar a primeira. Você pode anexar imagens e definir a prioridade.", "prancheta") + "</section>");
+            "Use o botão “Nova atividade” para publicar a primeira.", "prancheta") + "</section>");
 
     $("#btnNovaAtv").addEventListener("click", novaAtividade);
     $("#aTurmaFiltro").addEventListener("change", function () {
@@ -595,7 +594,7 @@
 
     visao.innerHTML =
       Casca.cabecalho("Minhas turmas",
-        "Desempenho dos estudantes apenas nos componentes que você leciona.") +
+        "Notas e médias dos estudantes nos componentes que você leciona.") +
 
       '<div class="barra-lancamento">' +
         '<span class="rotulo" style="margin:0">Turma</span>' +
