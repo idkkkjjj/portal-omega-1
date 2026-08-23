@@ -9,7 +9,9 @@
   Dados.iniciar();
 
   /* ------------------------------------------------------------- Rodape -- */
-  $("#rodapeAno").textContent = Dados.config().escola + " · ano letivo " + Dados.config().anoLetivo;
+  $("#rodapeAno").textContent = Dados.config().escola + " · " + Dados.config().cidade + "/" + Dados.config().uf;
+  const anoLetivo = $("#rodapeAnoLetivo");
+  if (anoLetivo) anoLetivo.textContent = Dados.config().anoLetivo;
 
   /* ----------------------------------------------------- Mostrar a senha - */
   const campoSenha = $("#senha");

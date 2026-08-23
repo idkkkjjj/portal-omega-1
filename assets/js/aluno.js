@@ -390,13 +390,7 @@
             (bol.abaixo.length
               ? "Você está abaixo da média em " + fmt.plural(bol.abaixo.length, "componente", "componentes") + ": " +
                 bol.abaixo.map(l => l.disciplina.nome).join(", ") + "."
-              : "Nenhum componente abaixo da média até o momento.") + "</div></div>" +
-            '<div class="divisor-rotulado topo-20">Escola</div>' +
-            '<dl class="definicoes">' +
-              "<dt>Instituição</dt><dd>" + esc(c().escola) + "</dd>" +
-              "<dt>Município</dt><dd>" + esc(c().cidade) + "/" + esc(c().uf) + "</dd>" +
-              "<dt>Código INEP</dt><dd>" + esc(c().inep) + "</dd>" +
-            "</dl>"
+              : "Nenhum componente abaixo da média até o momento.") + "</div></div>"
         }) +
       "</div>";
 
