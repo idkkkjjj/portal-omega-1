@@ -1,0 +1,228 @@
+/* ==========================================================================
+   app.css — estrutura interna do sistema (topo, menu lateral, conteudo)
+   ========================================================================== */
+
+.aplicacao {
+  display: grid;
+  grid-template-columns: var(--barra-lateral) 1fr;
+  grid-template-rows: var(--topo) 1fr;
+  grid-template-areas: "marca topo" "menu conteudo";
+  min-height: 100vh;
+}
+
+/* ------------------------------------------------------------ Barra topo - */
+.marca-app {
+  grid-area: marca;
+  display: flex; align-items: center; gap: 9px;
+  padding: 0 16px;
+  background: var(--tinta-900);
+  color: #fff;
+  border-bottom: 1px solid rgba(255,255,255,.07);
+}
+.marca-app .sigla {
+  display: flex; align-items: center; justify-content: center;
+  min-width: 28px; height: 28px; padding: 0 7px; border-radius: 6px; flex: none;
+  background: var(--marca); font-size: .72rem; font-weight: 800; letter-spacing: .04em;
+}
+.marca-app .nome { font-size: .97rem; font-weight: 700; letter-spacing: -.01em; line-height: 1.15; }
+.marca-app .nome small {
+  display: block; font-size: .63rem; font-weight: 500; opacity: .58;
+  letter-spacing: .06em; text-transform: uppercase;
+}
+
+.barra-topo {
+  grid-area: topo;
+  display: flex; align-items: center; gap: 14px;
+  padding: 0 20px;
+  background: var(--branco);
+  border-bottom: 1px solid var(--linha);
+}
+.barra-topo .titulo-secao { font-size: .95rem; font-weight: 600; line-height: 1.2; }
+.barra-topo .trilha { font-size: .75rem; color: var(--texto-3); }
+
+.pilula-periodo {
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 4px 11px; border-radius: 20px;
+  background: var(--marca-clara); border: 1px solid #c9d8f0;
+  font-size: .78rem; font-weight: 600; color: var(--marca-escura);
+}
+.pilula-periodo .ponto {
+  width: 7px; height: 7px; border-radius: 50%; background: var(--verde);
+  box-shadow: 0 0 0 3px rgba(28,122,79,.16);
+  animation: pulsar 2.4s ease-in-out infinite;
+}
+@keyframes pulsar { 0%, 100% { opacity: 1 } 50% { opacity: .3 } }
+
+.menu-usuario { position: relative; }
+.btn-usuario {
+  display: flex; align-items: center; gap: 9px;
+  border: 1px solid transparent; background: transparent;
+  padding: 4px 8px 4px 4px; border-radius: 30px;
+}
+.btn-usuario:hover { background: #f2f4f6; }
+.btn-usuario .info { text-align: left; line-height: 1.25; }
+.btn-usuario .info .n, .btn-usuario .info .p { display: block; }
+.btn-usuario .info .n { font-size: .84rem; font-weight: 600; }
+.btn-usuario .info .p { font-size: .72rem; color: var(--texto-2); }
+
+.gaveta {
+  position: absolute; right: 0; top: calc(100% + 7px); z-index: 60;
+  min-width: 232px; padding: 6px;
+  background: var(--branco); border: 1px solid var(--linha);
+  border-radius: var(--r-m); box-shadow: var(--sombra-2);
+}
+.gaveta .cabeca { padding: 9px 11px 10px; border-bottom: 1px solid var(--linha); margin-bottom: 5px; }
+.gaveta .cabeca .n { font-weight: 600; font-size: .89rem; }
+.gaveta .cabeca .e { font-size: .77rem; color: var(--texto-2); word-break: break-all; }
+.gaveta button, .gaveta a {
+  display: flex; align-items: center; gap: 9px; width: 100%;
+  padding: 8px 11px; border: 0; background: transparent;
+  border-radius: var(--r-p); font-size: .875rem; color: var(--texto);
+  text-align: left; text-decoration: none;
+}
+.gaveta button:hover, .gaveta a:hover { background: #f2f4f6; text-decoration: none; }
+.gaveta button svg, .gaveta a svg { width: 15px; height: 15px; color: var(--texto-2); flex: none; }
+.gaveta .separador { height: 1px; background: var(--linha); margin: 5px 0; }
+.gaveta .sair, .gaveta .sair svg { color: var(--rubro); }
+
+/* --------------------------------------------------------- Menu lateral -- */
+.barra-lateral {
+  grid-area: menu;
+  background: var(--tinta-900);
+  padding: 12px 10px 20px;
+  display: flex; flex-direction: column; gap: 2px;
+  overflow-y: auto;
+}
+.barra-lateral .grupo-titulo {
+  padding: 14px 12px 5px;
+  font-size: .65rem; font-weight: 700; letter-spacing: .11em;
+  text-transform: uppercase; color: rgba(255,255,255,.32);
+}
+.barra-lateral a {
+  display: flex; align-items: center; gap: 10px;
+  padding: 8px 12px; border-radius: var(--r-m);
+  color: rgba(255,255,255,.74); font-size: .885rem; font-weight: 500;
+  text-decoration: none; transition: background .12s, color .12s;
+}
+.barra-lateral a svg { width: 17px; height: 17px; flex: none; opacity: .78; }
+.barra-lateral a:hover { background: rgba(255,255,255,.07); color: #fff; text-decoration: none; }
+.barra-lateral a.ativo { background: var(--marca); color: #fff; font-weight: 600; }
+.barra-lateral a.ativo svg { opacity: 1; }
+.barra-lateral a .conta {
+  margin-left: auto; font-size: .7rem; font-weight: 700;
+  background: rgba(255,255,255,.16); padding: 1px 7px; border-radius: 10px;
+  font-variant-numeric: tabular-nums;
+}
+.barra-lateral a.ativo .conta { background: rgba(0,0,0,.22); }
+.barra-lateral .rodape-menu {
+  margin-top: auto; padding: 14px 12px 0;
+  font-size: .72rem; color: rgba(255,255,255,.36); line-height: 1.55;
+  border-top: 1px solid rgba(255,255,255,.08);
+}
+.barra-lateral .rodape-menu a {
+  display: inline; padding: 0; color: rgba(255,255,255,.55);
+  text-decoration: underline; font-size: inherit;
+}
+
+/* ------------------------------------------------------------- Conteudo -- */
+.conteudo { grid-area: conteudo; padding: 22px 24px 60px; overflow-x: hidden; }
+.faixa { max-width: 1360px; margin: 0 auto; }
+
+.cabecalho-pagina {
+  display: flex; align-items: flex-end; justify-content: space-between;
+  gap: 16px; flex-wrap: wrap; margin-bottom: 18px;
+}
+.cabecalho-pagina h1 { font-size: 1.42rem; }
+.cabecalho-pagina .descricao { color: var(--texto-2); font-size: .9rem; margin-top: 3px; max-width: 640px; }
+.cabecalho-pagina .acoes { display: flex; gap: 9px; flex-wrap: wrap; }
+
+/* ---------------------------------------------------------------- KPIs --- */
+.grade-kpi {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(198px, 1fr));
+  gap: 14px; margin-bottom: 18px;
+}
+.kpi {
+  background: var(--branco); border: 1px solid var(--linha);
+  border-radius: var(--r-g); padding: 15px 17px; box-shadow: var(--sombra-1);
+  position: relative; overflow: hidden;
+}
+.kpi::after { content: ""; position: absolute; left: 0; top: 0; bottom: 0; width: 3px; background: var(--marca); }
+.kpi.verde::after { background: var(--verde); }
+.kpi.ambar::after { background: var(--ambar); }
+.kpi.rubro::after { background: var(--rubro); }
+.kpi.roxo::after  { background: var(--roxo); }
+.kpi .rot { font-size: .73rem; font-weight: 700; letter-spacing: .05em; text-transform: uppercase; color: var(--texto-2); }
+.kpi .val {
+  font-size: 1.72rem; font-weight: 700; line-height: 1.15; margin-top: 5px;
+  font-variant-numeric: tabular-nums; letter-spacing: -.022em;
+}
+.kpi .val small { font-size: .92rem; font-weight: 600; color: var(--texto-2); letter-spacing: 0; }
+.kpi .nota { font-size: .78rem; color: var(--texto-2); margin-top: 3px; }
+
+/* -------------------------------------------------------------- Grades --- */
+.grade-2 { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
+.grade-3 { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
+.grade-12-8 { display: grid; grid-template-columns: minmax(0, 1.55fr) minmax(0, 1fr); gap: 16px; }
+.grade-8-12 { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.55fr); gap: 16px; }
+@media (max-width: 1080px) { .grade-3 { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 900px) {
+  .grade-2, .grade-3, .grade-12-8, .grade-8-12 { grid-template-columns: 1fr; }
+}
+
+/* ------------------------------------------------------------- Graficos -- */
+.area-grafico { width: 100%; }
+.area-grafico svg { display: block; width: 100%; }
+.legenda { display: flex; flex-wrap: wrap; gap: 6px 16px; margin-top: 12px; font-size: .8rem; color: var(--texto-2); }
+.legenda span { display: inline-flex; align-items: center; gap: 6px; }
+.legenda i { width: 10px; height: 10px; border-radius: 3px; display: inline-block; flex: none; }
+
+.dica-grafico {
+  position: fixed; z-index: 400; pointer-events: none;
+  background: var(--tinta-900); color: #fff;
+  padding: 6px 10px; border-radius: var(--r-p);
+  font-size: .78rem; line-height: 1.4; box-shadow: var(--sombra-2);
+  transform: translate(-50%, -132%); white-space: nowrap;
+}
+
+/* ---------------------------------------------------------- Responsivo --- */
+.abrir-menu { display: none; }
+@media (max-width: 860px) {
+  .aplicacao { grid-template-columns: 1fr; grid-template-areas: "marca" "topo" "conteudo"; }
+  .barra-lateral {
+    position: fixed; inset: var(--topo) auto 0 0; width: 262px; z-index: 120;
+    transform: translateX(-100%); transition: transform .2s ease;
+    box-shadow: var(--sombra-3);
+  }
+  .barra-lateral.aberta { transform: none; }
+  .marca-app { position: sticky; top: 0; z-index: 130; }
+  .abrir-menu { display: inline-flex; }
+  .conteudo { padding: 18px 15px 60px; }
+  .barra-topo { padding: 0 15px; }
+  .cabecalho-pagina h1 { font-size: 1.24rem; }
+}
+.cortina { display: none; position: fixed; inset: 0; z-index: 110; background: rgba(16,31,56,.42); }
+.cortina.visivel { display: block; }
+
+/* ------------------------------------------------- Faixa de acesso assistido */
+.faixa-personificacao {
+  display: flex; align-items: center; gap: 10px; flex-wrap: wrap;
+  padding: 8px 18px; background: var(--ambar); color: #fff;
+  font-size: .85rem; line-height: 1.4;
+}
+.faixa-personificacao svg { width: 16px; height: 16px; flex: none; }
+.faixa-personificacao b { font-weight: 700; }
+.faixa-personificacao button {
+  margin-left: auto; border: 1px solid rgba(255,255,255,.5);
+  background: rgba(255,255,255,.14); color: #fff;
+  padding: 3px 12px; border-radius: 20px; font-size: .8rem; font-weight: 600;
+}
+.faixa-personificacao button:hover { background: rgba(255,255,255,.26); }
+
+/* Lista de seleção fixa + área de conteúdo elástica (usado em Boletins) */
+.grade-lista { display: grid; grid-template-columns: 286px minmax(0, 1fr); gap: 16px; }
+@media (max-width: 1000px) { .grade-lista { grid-template-columns: 1fr; } }
+
+/* Marca no canto superior esquerdo */
+.marca-app .sigla { padding: 5px; }
+.marca-app .sigla .marca-omega { width: 18px; height: 18px; }
+.marca-app .nome { max-width: 150px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }

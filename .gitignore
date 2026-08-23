@@ -1,0 +1,20 @@
+# Sistema operacional
+Thumbs.db
+Desktop.ini
+.DS_Store
+
+# Editores
+.vscode/
+.idea/
+*.code-workspace
+*.swp
+
+# Dependências e artefatos (o projeto não usa, mas evita acidentes)
+node_modules/
+dist/
+build/
+
+# Cópias de segurança geradas pelo próprio sistema
+sige-backup-*.json
+omega-backup-*.json
+boletins-*.csv

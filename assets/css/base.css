@@ -1,0 +1,165 @@
+/* ==========================================================================
+   base.css — variaveis, reset e tipografia
+   SIGE — Sistema Integrado de Gestao Escolar
+   ========================================================================== */
+
+:root {
+  /* Cores institucionais */
+  --tinta-900: #101f38;
+  --tinta-800: #16294a;
+  --tinta-700: #1d3760;
+  --tinta-600: #2a4a7a;
+
+  --marca:        #1b4f9c;
+  --marca-escura: #143c78;
+  --marca-clara:  #e8effa;
+
+  /* Vermelho do símbolo Ômega. Só aparece na marca — os dados usam as cores
+     semânticas abaixo, para não competir com o vermelho de "abaixo da média". */
+  --omega: #c1272d;
+
+  --verde:       #1c7a4f;
+  --verde-claro: #e2f1e9;
+  --ambar:       #a86c0c;
+  --ambar-claro: #fbf0da;
+  --rubro:       #a53225;
+  --rubro-claro: #fae9e6;
+  --roxo:        #5b4b8a;
+
+  /* Neutros */
+  --papel:      #f3f5f7;
+  --branco:     #ffffff;
+  --linha:      #dde2e7;
+  --linha-forte:#c3ccd4;
+  --texto:      #17242f;
+  --texto-2:    #55636f;
+  --texto-3:    #8593a0;
+
+  /* Formas */
+  --r-p: 4px;
+  --r-m: 6px;
+  --r-g: 9px;
+  --sombra-1: 0 1px 2px rgba(15, 30, 41, .06), 0 1px 3px rgba(15, 30, 41, .07);
+  --sombra-2: 0 2px 4px rgba(15, 30, 41, .06), 0 6px 16px rgba(15, 30, 41, .10);
+  --sombra-3: 0 10px 40px rgba(15, 30, 41, .22);
+
+  /* Medidas */
+  --barra-lateral: 244px;
+  --topo: 58px;
+
+  --fonte: "Segoe UI", -apple-system, BlinkMacSystemFont, Roboto, "Helvetica Neue", Arial, sans-serif;
+  --fonte-num: "Segoe UI", "SF Mono", Consolas, "Liberation Mono", monospace;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html { -webkit-text-size-adjust: 100%; }
+
+body {
+  margin: 0;
+  font-family: var(--fonte);
+  font-size: 15px;
+  line-height: 1.55;
+  color: var(--texto);
+  background: var(--papel);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+h1, h2, h3, h4, h5 { margin: 0; font-weight: 600; line-height: 1.25; letter-spacing: -.011em; }
+h1 { font-size: 1.6rem; }
+h2 { font-size: 1.24rem; }
+h3 { font-size: 1.05rem; }
+h4 { font-size: .95rem; }
+p  { margin: 0 0 .8em; }
+p:last-child { margin-bottom: 0; }
+
+a { color: var(--marca); text-decoration: none; }
+a:hover { text-decoration: underline; }
+
+ul, ol { margin: 0 0 1em; padding-left: 1.25em; }
+li + li { margin-top: .3em; }
+
+img, svg { max-width: 100%; }
+img { height: auto; display: block; }
+
+hr { border: 0; border-top: 1px solid var(--linha); margin: 22px 0; }
+
+button, input, select, textarea { font: inherit; color: inherit; }
+button { cursor: pointer; }
+
+code, kbd, .num {
+  font-family: var(--fonte-num);
+  font-variant-numeric: tabular-nums;
+}
+
+kbd {
+  background: var(--papel);
+  border: 1px solid var(--linha-forte);
+  border-bottom-width: 2px;
+  border-radius: var(--r-p);
+  padding: 1px 5px;
+  font-size: .8em;
+}
+
+/* Foco visivel e consistente */
+:focus-visible {
+  outline: 2px solid var(--marca);
+  outline-offset: 2px;
+  border-radius: 3px;
+}
+
+::selection { background: #bcdcee; }
+
+/* Barras de rolagem discretas (WebKit) */
+::-webkit-scrollbar { width: 11px; height: 11px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb {
+  background: #c6ced6;
+  border: 3px solid transparent;
+  background-clip: content-box;
+  border-radius: 8px;
+}
+::-webkit-scrollbar-thumb:hover { background: #a8b3bd; background-clip: content-box; }
+
+/* -------------------------------------------------------------------------
+   Utilitarios enxutos
+   ------------------------------------------------------------------------- */
+.linha-flex { display: flex; align-items: center; gap: 10px; }
+.linha-flex.entre { justify-content: space-between; }
+.linha-flex.fim { justify-content: flex-end; }
+.linha-flex.topo { align-items: flex-start; }
+.quebra { flex-wrap: wrap; }
+.esticar { flex: 1 1 auto; min-width: 0; }
+.texto-2 { color: var(--texto-2); }
+.texto-3 { color: var(--texto-3); }
+.pequeno { font-size: .82rem; }
+.medio { font-size: .9rem; }
+.forte { font-weight: 600; }
+.centro { text-align: center; }
+.direita { text-align: right; }
+.maiusc { text-transform: uppercase; letter-spacing: .06em; font-size: .72rem; font-weight: 700; }
+.oculto { display: none !important; }
+.truncar { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.sem-margem { margin: 0 !important; }
+.topo-8  { margin-top: 8px; }
+.topo-14 { margin-top: 14px; }
+.topo-20 { margin-top: 20px; }
+.topo-28 { margin-top: 28px; }
+
+.so-leitor {
+  position: absolute; width: 1px; height: 1px;
+  padding: 0; margin: -1px; overflow: hidden;
+  clip: rect(0 0 0 0); white-space: nowrap; border: 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: .01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: .01ms !important;
+  }
+}
+
+/* Símbolo Ômega da marca — usado no topo, no portal e nos rodapés */
+.marca-omega { display: block; width: 100%; height: 100%; }
