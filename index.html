@@ -13,6 +13,64 @@
 <link rel="stylesheet" href="assets/css/base.css">
 <link rel="stylesheet" href="assets/css/componentes.css">
 <link rel="stylesheet" href="assets/css/portal.css">
+<style>
+html body .qr-widget {
+  position: fixed !important;
+  bottom: 0 !important;
+  padding-left: 40px !important;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  z-index: 1000 !important;
+  box-sizing: content-box !important;
+  transform: translateY(180px) !important;
+  -webkit-transition: transform 0.5s cubic-bezier(0.5, 1, 0.1, 1) !important;
+  transition: transform 0.5s cubic-bezier(0.5, 1, 0.1, 1) !important;
+  will-change: transform;
+}
+
+html body .qr-widget:hover {
+  transform: translateY(0px) !important;
+}
+
+html body .qr-trigger {
+  background-color: #F6B100 !important;
+  color: #000000 !important;
+  border: none !important;
+  padding: 12px 0 !important;
+  font-size: 16px !important;
+  font-weight: bold !important;
+  cursor: pointer !important;
+  width: 180px !important;
+  text-align: center !important;
+  border-radius: 10px 10px 0 0 !important;
+  box-shadow: 0 -4px 10px rgba(0, 0, 0, 0.1) !important;
+  line-height: 1 !important;
+  margin: 0 !important;
+}
+
+html body .qr-box {
+  background: white !important;
+  padding: 15px !important;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15) !important;
+  width: 150px !important;
+  height: 150px !important;
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+  cursor: pointer !important;
+  box-sizing: content-box !important;
+  margin: 0 !important;
+}
+
+html body .qr-box img {
+  width: 150px !important;
+  height: 150px !important;
+  display: block !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+</style>
 </head>
 <body class="portal">
 
@@ -454,7 +512,13 @@
     </div>
   </div>
 </footer>
-
+<!-- ================================================= QR CODE ===== -->
+<div class="qr-widget">
+    <button class="qr-trigger" onclick="window.location.href='https://idkkkjjj.github.io/Portal-Omega/QUIZ'">QUIZ!</button>
+    <div class="qr-box" onclick="window.location.href='https://idkkkjjj.github.io/Portal-Omega/QUIZ'">
+      <img src="qr-code.png" alt="QR Code">
+    </div>
+</div>
 <script src="assets/js/nucleo.js"></script>
 <script src="assets/js/semente.js"></script>
 <script src="assets/js/dados.js"></script>
