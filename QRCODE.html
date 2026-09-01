@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>qrc ode</title>
+<style>
+  .qr-widget {
+    position: fixed;
+    bottom: 0;
+    padding-left: 250px;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    z-index: 1000;
+    transition: transform 0.75s cubic-bezier(0.25, 1, 0.5, 1);
+    transform: translate(-50%, 180px); 
+  }
+
+ .qr-trigger {
+    background-color: #F6B100;
+    color: black;
+    border: none;
+    padding: 12px 24px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    width: 180px;
+    text-align: center;
+    border-radius: 10px 10px 0 0;
+    box-shadow: 0 -4px 10px rgba(0, 0, 0, 0.1);
+  }
+
+ .qr-box {
+    background: white;
+    padding: 15px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+    width: 150px;
+    height: 150px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+  }
+
+ .qr-box img {
+    width: 150px;
+    height: 150px;
+    display: block;
+  }
+  .qr-widget:hover {
+    transform: translate(-50%, 0);
+  }
+</style>
+</head>
+<body>
+  <div class="qr-widget">
+    <button class="qr-trigger" onclick="window.location.href='https://idkkkjjj.github.io/Portal-Omega/QUIZ'">QUIZ!</button>
+    <div class="qr-box" onclick="window.location.href='https://idkkkjjj.github.io/Portal-Omega/QUIZ'">
+      <img src="qr-code.png" alt="QR Code">
+    </div>
+  </div>
+
+</body>
+</html>

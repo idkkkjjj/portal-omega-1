@@ -1,0 +1,572 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Portal Ômega — Quiz das Profissões Tech</title>
+    <meta name="description" content="Descubra seu perfil tecnológico">
+    <meta name="theme-color" content="#17181c">
+    <style>
+        :root {
+            --bg-portal: #17181c;
+            --bg-card: #1f2026;
+            --cor-ouro: #f6b100;
+            --cor-ouro-hover: #d99c00;
+            --texto-principal: #ffffff;
+            --texto-mutado: #9ca3af;
+            --borda: #2e303b;
+            --sucesso: #10b981;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: var(--bg-portal);
+            color: var(--texto-principal);
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            overflow-x: hidden;
+        }
+
+        /* ═══════════ TELA DE ABERTURA TEMÁTICA (CORTINA) ═══════════ */
+        .cortina-abertura {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: var(--bg-portal);
+            z-index: 1000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: opacity 0.5s ease, transform 0.5s ease;
+            opacity: 1;
+        }
+
+        /* Classe disparada pelo JavaScript para sumir com a tela */
+        .cortina-abertura.oculto {
+            opacity: 0;
+            pointer-events: none;
+            transform: scale(1.05);
+        }
+
+        .cortina-miolo {
+            text-align: center;
+            padding: 20px;
+            max-width: 400px;
+            width: 100%;
+        }
+
+        .cortina-marca {
+            width: 96px;
+            height: 96px;
+            margin-bottom: 20px;
+            animation: flutuar 3s ease-in-out infinite;
+        }
+
+        @keyframes flutuar {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-8px); }
+        }
+
+        .cortina-titulo {
+            font-size: 28px;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+            margin-bottom: 6px;
+        }
+
+        .cortina-titulo span {
+            color: var(--cor-ouro);
+        }
+
+        .cortina-sub {
+            color: var(--texto-mutado);
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            margin-bottom: 30px;
+        }
+
+        /* Barra de carregamento simulada na cortina */
+        .loading-bar-bg {
+            background: #2a2b35;
+            height: 4px;
+            width: 100%;
+            border-radius: 2px;
+            overflow: hidden;
+            margin-bottom: 25px;
+        }
+
+        .loading-bar-fill {
+            background: var(--cor-ouro);
+            height: 100%;
+            width: 0%;
+            box-shadow: 0 0 12px var(--cor-ouro);
+            transition: width 0.1s linear;
+        }
+
+        /* ═══════════ HEADER DO PORTAL ═══════════ */
+        .topo-portal {
+            background-color: var(--bg-card);
+            border-bottom: 1px solid var(--borda);
+            padding: 15px 20px;
+        }
+
+        .envelope {
+            max-width: 1100px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .marca-portal {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+            color: var(--texto-principal);
+        }
+
+        .escudo {
+            width: 36px;
+            height: 36px;
+            background: var(--bg-portal);
+            border-radius: 8px;
+            padding: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .txt b {
+            display: block;
+            font-size: 16px;
+            letter-spacing: -0.3px;
+        }
+
+        .txt small {
+            display: block;
+            color: var(--texto-mutado);
+            font-size: 11px;
+        }
+
+        .tag-feira {
+            background-color: rgba(246, 177, 0, 0.1);
+            border: 1px solid var(--cor-ouro);
+            color: var(--cor-ouro);
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        /* ═══════════ CONTEÚDO DO QUIZ ═══════════ */
+        .principal {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 40px 20px;
+        }
+
+        .quiz-card {
+            background-color: var(--bg-card);
+            border: 1px solid var(--borda);
+            border-radius: 16px;
+            width: 100%;
+            max-width: 640px;
+            padding: 35px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+
+        .progresso-container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 25px;
+            font-size: 14px;
+            color: var(--texto-mutado);
+        }
+
+        .linha-progresso-bg {
+            background-color: var(--bg-portal);
+            height: 6px;
+            width: 100%;
+            border-radius: 3px;
+            margin: 12px 0;
+            overflow: hidden;
+        }
+
+        .linha-progresso-fill {
+            background-color: var(--cor-ouro);
+            height: 100%;
+            width: 0%;
+            transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .pergunta-texto {
+            font-size: 20px;
+            font-weight: 600;
+            line-height: 1.4;
+            margin-bottom: 30px;
+        }
+
+        .caixa-opcoes {
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+        }
+
+        .btn-opcao {
+            background-color: var(--bg-portal);
+            border: 1px solid var(--borda);
+            color: var(--texto-principal);
+            padding: 16px 20px;
+            border-radius: 10px;
+            text-align: left;
+            font-size: 15px;
+            line-height: 1.4;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            width: 100%;
+        }
+
+        .btn-opcao:hover {
+            border-color: var(--cor-ouro);
+            background-color: rgba(246, 177, 0, 0.03);
+            transform: translateY(-2px);
+        }
+
+        /* ═══════════ TELA DE RESULTADO ═══════════ */
+        .resultado-tela {
+            display: none;
+            text-align: center;
+        }
+
+        .resultado-categoria {
+            color: var(--cor-ouro);
+            font-size: 13px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        .resultado-titulo {
+            font-size: 28px;
+            font-weight: 800;
+            margin-bottom: 20px;
+            letter-spacing: -0.5px;
+        }
+
+        .resultado-corpo {
+            background-color: var(--bg-portal);
+            border: 1px solid var(--borda);
+            padding: 20px;
+            border-radius: 12px;
+            line-height: 1.6;
+            color: var(--texto-mutado);
+            text-align: left;
+            margin-bottom: 30px;
+            font-size: 15px;
+        }
+
+        .btn-reiniciar {
+            background-color: var(--cor-ouro);
+            color: var(--bg-portal);
+            border: none;
+            padding: 14px 28px;
+            border-radius: 8px;
+            font-weight: 700;
+            font-size: 15px;
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .btn-reiniciar:hover {
+            background-color: var(--cor-ouro-hover);
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ═══════════ ABERTURA TEMÁTICA DE CARREGAMENTO ═══════════ -->
+    <div id="cortina" class="cortina-abertura">
+      <div class="cortina-miolo">
+        <svg class="cortina-marca" viewBox="0 0 64 64" fill="none">
+          <ellipse class="ab-elipse" cx="32" cy="34" rx="27" ry="14.5" transform="rotate(-14 32 34)"
+                   pathLength="100" stroke="#f6b100" stroke-width="5"/>
+          <path class="ab-omega" d="M22 41h7v-3a10.5 10.5 0 1 1 6 0v3h7"
+                pathLength="100" stroke="#ffffff" stroke-width="4.6"
+                stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        <h1 class="cortina-titulo">Feira das <span>Profissões</span></h1>
+        <p class="cortina-sub">Mapeamento de Perfil Tech</p>
+        
+        <div class="loading-bar-bg">
+            <div class="loading-bar-fill" id="load-fill"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ═══════════ TOPO DO PORTAL ═══════════ -->
+    <header class="topo-portal">
+      <div class="envelope">
+        <a class="marca-portal" href="#">
+          <span class="escudo">
+            <svg viewBox="0 0 64 64" fill="none" style="width:100%;height:100%">
+              <ellipse cx="32" cy="34" rx="27" ry="14.5" transform="rotate(-14 32 34)" stroke="#f6b100" stroke-width="5"/>
+              <path d="M22 41h7v-3a10.5 10.5 0 1 1 6 0v3h7" stroke="#ffffff" stroke-width="4.6" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </span>
+          <span class="txt"><b>Portal Ômega</b><small>Colégio Ômega · Aracaju</small></span>
+        </a>
+        <div class="tag-feira">Edição 2026</div>
+      </div>
+    </header>
+
+    <!-- ═══════════ CONTAINER PRINCIPAL DO QUIZ ═══════════ -->
+    <main class="principal">
+        <div class="quiz-card">
+            
+            <!-- Tela de Perguntas Ativas -->
+            <div id="quiz-jogo">
+                <div class="progresso-container">
+                    <span id="num-questao">Questão 1 de 10</span>
+                    <span id="porcentagem-txt">0%</span>
+                </div>
+                <div class="linha-progresso-bg">
+                    <div class="linha-progresso-fill" id="quiz-progress-bar"></div>
+                </div>
+                <div class="pergunta-texto" id="txt-pergunta">Carregando questionário...</div>
+                <div class="caixa-opcoes" id="caixa-respostas"></div>
+            </div>
+
+            <!-- Tela de Exibição de Perfil Final -->
+            <div id="quiz-resultado" class="resultado-tela">
+                <div class="resultado-categoria">Diagnóstico de Perfil</div>
+                <div class="resultado-titulo" id="res-titulo">Seu Perfil Ideal</div>
+                <div class="resultado-corpo" id="res-descricao">Descrição detalhada...</div>
+                <button class="btn-reiniciar" onclick="reiniciarQuiz()">Refazer Teste</button>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- ═══════════ LÓGICA DO QUIZ & ANIMAÇÕES ═══════════ -->
+    <script>
+        // 1. Controle da Tela de Carregamento (Cortina)
+        const cortina = document.getElementById('cortina');
+        const loadFill = document.getElementById('load-fill');
+        let progressoJanela = 0;
+
+        const intervaloCarregamento = setInterval(() => {
+            progressoJanela += 4;
+            loadFill.style.width = progressoJanela + '%';
+            if (progressoJanela >= 100) {
+                fecharCortina();
+            }
+        }, 30);
+
+        function fecharCortina() {
+            clearInterval(intervaloCarregamento);
+            cortina.classList.add('oculto');
+            setTimeout(() => {
+                cortina.style.display = 'none';
+            }, 500);
+        }
+
+        // 2. Base de Dados das Perguntas (Mapeamento de Vertentes)
+        const questions = [
+            {
+                text: "1. Ao navegar pelo Portal Ômega, o que mais desperta o seu interesse técnico?",
+                options: [
+                    { text: "O design moderno da interface, as cores e a fluidez visual do boletim.", profile: "front" },
+                    { text: "A lógica por trás do sistema de login e a segurança na validação de dados.", profile: "back" },
+                    { text: "Como o portal conecta o design visual diretamente ao processamento do servidor.", profile: "full" },
+                    { text: "Como os dados de notas de todas as turmas são reuniidos em estatísticas e gráficos.", profile: "data" }
+                ]
+            },
+            {
+                text: "2. Se você participasse do desenvolvimento de um novo jogo para a escola, qual seria sua função?",
+                options: [
+                    { text: "Criar o layout dos menus, barra de vida do personagem e efeitos visuais na tela.", profile: "front" },
+                    { text: "Codificar as mecânicas de física, movimentação interna e salvamento de dados.", profile: "back" },
+                    { text: "Garantir a união perfeita entre a arte gráfica e a programação estrutural.", profile: "full" },
+                    { text: "Analisar as métricas de erros e tempo de jogo para calibrar a dificuldade interna.", profile: "data" }
+                ]
+            },
+            {
+                text: "3. Diante de um grande mistério de lógica ou enigma complexo, como você prefere agir?",
+                options: [
+                    { text: "Organizar as peças visíveis por cores e formatos para facilitar o manuseio.", profile: "front" },
+                    { text: "Estudar o mecanismo oculto para entender as regras absolutas da charada.", profile: "back" },
+                    { text: "Montar a fundação básica interna sem esquecer de dar acabamento no exterior.", profile: "full" },
+                    { text: "Cruzar as informações anteriores para gerar padrões de repetição e probabilidade.", profile: "data" }
+                ]
+            },
+            {
+                text: "4. Escolha um superpoder focado no desenvolvimento de softwares:",
+                options: [
+                    { text: "Materializar interfaces perfeitas e totalmente interativas instantaneamente na tela.", profile: "front" },
+                    { text: "Erguer arquiteturas de servidores indestrutíveis e imunes a ataques cibernéticos.", profile: "back" },
+                    { text: "Dominar todas as linguagens da tecnologia para criar ecossistemas completos sozinho.", profile: "full" },
+                    { text: "Enxergar tendências ocultas e prever comportamentos analisando tabelas em massa.", profile: "data" }
+                ]
+            },
+            {
+                text: "5. Em um projeto em grupo do colégio, qual etapa você assume com maior naturalidade?",
+                options: [
+                    { text: "A identidade visual, a montagem dos slides e a experiência estética do público.", profile: "front" },
+                    { text: "A estruturação teórica do trabalho, fórmulas matemáticas e regras rígidas.", profile: "back" },
+                    { text: "A coordenação integrada, ligando a teoria de base com a apresentação prática.", profile: "full" },
+                    { text: "A coleta de estatísticas, dados reais e criação de tabelas comparativas.", profile: "data" }
+                ]
+            },
+            {
+                text: "6. Qual conceito ou ferramenta do mundo digital te gera maior fascínio para aprender?",
+                options: [
+                    { text: "Animações fluidas em CSS, design responsivo e efeitos em 3D no navegador.", profile: "front" },
+                    { text: "Bancos de dados maciços, APIs criptografadas e servidores em nuvem.", profile: "back" },
+                    { text: "Arquiteturas modernas na web que unem o cliente final ao banco de dados.", profile: "full" },
+                    { text: "Algoritmos avançados de Inteligência Artificial e modelos de Machine Learning.", profile: "data" }
+                ]
+            },
+            {
+                text: "7. Quando surge uma quebra no código ou projeto, como você lida com a situação?",
+                options: [
+                    { text: "Verifico os alinhamentos e caixas de estilo para assegurar que nada quebrou na tela.", profile: "front" },
+                    { text: "Abro os relatórios de logs profundos do servidor para achar a linha exata do erro.", profile: "back" },
+                    { text: "Avalio simultaneamente o comportamento visual e as quebras na estrutura lógica.", profile: "full" },
+                    { text: "Mapeio a recorrência estatística da falha para entender o padrão do problema.", profile: "data" }
+                ]
+            },
+            {
+                text: "8. Para você, qual a maior fonte de realização na hora de criar tecnologia?",
+                options: [
+                    { text: "Saber que o usuário achou o design do site elegante, confortável e intuitivo.", profile: "front" },
+                    { text: "Saber que o sistema suportou picos imensos de tráfego de dados sem oscilar.", profile: "back" },
+                    { text: "Ver uma aplicação inteira rodando perfeitamente sabendo que você domina as duas pontas.", profile: "full" },
+                    { text: "Extrair decisões valiosas que resolvem problemas reais através de planilhas gigantes.", profile: "data" }
+                ]
+            },
+            {
+                text: "9. Se você pudesse criar uma aplicação para impactar positivamente Aracaju, focaria em:",
+                options: [
+                    { text: "Um app com interface adaptada para facilitar o acesso digital de idosos a serviços públicos.", profile: "front" },
+                    { text: "Um sistema de segurança criptografado contra vazamentos e fraudes em cooperativas.", profile: "back" },
+                    { text: "Uma plataforma completa integrada que une comércio, entregas e agendamentos locais.", profile: "full" },
+                    { text: "Um modelo preditivo de trânsito inteligente cruzando dados históricos de horários de pico.", profile: "data" }
+                ]
+            },
+            {
+                text: "10. Fazendo uma analogia com a engenharia civil, qual profissional você seria na tecnologia?",
+                options: [
+                    { text: "O arquiteto responsável pelas fachadas arrojadas, iluminação e design de interiores.", profile: "front" },
+                    { text: "O engenheiro de estruturas encarregado da fundação, encanamentos essenciais e vigas.", profile: "back" },
+                    { text: "O mestre de obras experiente que domina da concretagem estrutural ao acabamento.", profile: "full" },
+                    { text: "O engenheiro de tráfego que estuda o fluxo populacional para otimizar acessos e rotas.", profile: "data" }
+                ]
+            }
+        ];
+
+        const profiles = {
+            front: {
+                title: "Desenvolvedor(a) Front-End 🎨",
+                desc: "Sua paixão é o ponto de encontro entre o código e o usuário! Você transforma conceitos abstratos em interfaces digitais bonitas, dinâmicas e acessíveis. Dominar o Front-End significa dar vida e interação a páginas web usando ferramentas como HTML, CSS e ecossistemas JavaScript."
+            },
+            back: {
+                title: "Desenvolvedor(a) Back-End ⚙️",
+                desc: "Você comanda as engrenagens ocultas da tecnologia! Focado em lógica estrutural pura, segurança de dados e processamento veloz. É a mente responsável por gerenciar servidores blindados, criar regras de negócio de alta performance e manipular bancos de dados robustos."
+            },
+            full: {
+                title: "Desenvolvedor(a) Full Stack 🛠️",
+                desc: "O verdadeiro coringa das equipes tech! Com uma visão holística impressionante, você transita com naturalidade entre a criação visual do Front-End e as regras de arquitetura complexas do Back-End. Tem o poder de idealizar, estruturar e publicar projetos do absoluto zero."
+            },
+            data: {
+                title: "Analista / Cientista de Dados 📊",
+                desc: "Você transforma números soltos em vantagens reais! Possui pensamento analítico e estratégico aguçado, enxergando padrões ocultos onde outros veem apenas confusão. Utiliza linguagens específicas, estatística e Inteligência Artificial para guiar decisões cruciais de grandes empresas."
+            }
+        };
+
+        let currentQuestionIndex = 0;
+        let scores = { front: 0, back: 0, full: 0, data: 0 };
+
+        function carregarQuestao() {
+            const questaoAtual = questions[currentQuestionIndex];
+            
+            document.getElementById('num-questao').innerText = `Questão ${currentQuestionIndex + 1} de ${questions.length}`;
+            const progressoAtual = Math.round((currentQuestionIndex / questions.length) * 100);
+            document.getElementById('porcentagem-txt').innerText = `${progressoAtual}%`;
+            document.getElementById('quiz-progress-bar').style.width = `${progressoAtual}%`;
+
+            document.getElementById('txt-pergunta').innerText = questaoAtual.text;
+
+            const caixaRespostas = document.getElementById('caixa-respostas');
+            caixaRespostas.innerHTML = '';
+
+            questaoAtual.options.forEach(opcao => {
+                const botao = document.createElement('button');
+                botao.className = 'btn-opcao';
+                botao.innerText = opcao.text;
+                botao.onclick = () => computarResposta(opcao.profile);
+                caixaRespostas.appendChild(botao);
+            });
+        }
+
+        function computarResposta(perfilSelecionado) {
+            scores[perfilSelecionado]++;
+            currentQuestionIndex++;
+
+            if (currentQuestionIndex < questions.length) {
+                carregarQuestao();
+            } else {
+                exibirResultadoFinal();
+            }
+        }
+
+        function exibirResultadoFinal() {
+            document.getElementById('porcentagem-txt').innerText = "100%";
+            document.getElementById('quiz-progress-bar').style.width = "100%";
+
+            document.getElementById('quiz-jogo').style.display = 'none';
+            document.getElementById('quiz-resultado').style.display = 'block';
+
+            let vencedor = 'front';
+            let maiorPontuacao = -1;
+
+            for (const chave in scores) {
+                if (scores[chave] > maiorPontuacao) {
+                    maiorPontuacao = scores[chave];
+                    vencedor = chave;
+                }
+            }
+
+            document.getElementById('res-titulo').innerText = profiles[vencedor].title;
+            document.getElementById('res-descricao').innerText = profiles[vencedor].desc;
+        }
+
+        function reiniciarQuiz() {
+            currentQuestionIndex = 0;
+            scores = { front: 0, back: 0, full: 0, data: 0 };
+            document.getElementById('quiz-resultado').style.display = 'none';
+            document.getElementById('quiz-jogo').style.display = 'block';
+            carregarQuestao();
+        }
+
+        carregarQuestao();
+    </script>
+</body>
+</html>

@@ -1,0 +1,824 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Portal Ômega — Quiz das Profissões Tech</title>
+    <meta name="description" content="Teste seus conhecimentos">
+    <meta name="theme-color" content="#17181c">
+    <style>
+        :root {
+            --bg-portal: #17181c;
+            --bg-card: #1f2026;
+            --cor-ouro: #f6b100;
+            --cor-ouro-hover: #d99c00;
+            --texto-principal: #ffffff;
+            --texto-mutado: #9ca3af;
+            --borda: #2e303b;
+            --sucesso: #10b981;
+            --erro: #ef4444;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: var(--bg-portal);
+            color: var(--texto-principal);
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            overflow-x: hidden;
+        }
+
+        /* ═══════════ TELA DE ABERTURA TEMÁTICA (CORTINA) ═══════════ */
+        .cortina-abertura {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: var(--bg-portal);
+            z-index: 1000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: opacity 0.5s ease, transform 0.5s ease;
+            opacity: 1;
+        }
+
+        .cortina-abertura.oculto {
+            opacity: 0;
+            pointer-events: none;
+            transform: scale(1.05);
+        }
+
+        .cortina-miolo {
+            text-align: center;
+            padding: 20px;
+            max-width: 400px;
+            width: 100%;
+        }
+
+        .cortina-marca {
+            width: 96px;
+            height: 96px;
+            margin-bottom: 20px;
+            animation: flutuar 3s ease-in-out infinite;
+        }
+
+        @keyframes flutuar {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-8px); }
+        }
+
+        .cortina-titulo {
+            font-size: 28px;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+            margin-bottom: 6px;
+        }
+
+        .cortina-titulo span {
+            color: var(--cor-ouro);
+        }
+
+        .cortina-sub {
+            color: var(--texto-mutado);
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            margin-bottom: 30px;
+        }
+
+        .loading-bar-bg {
+            background: #2a2b35;
+            height: 4px;
+            width: 100%;
+            border-radius: 2px;
+            overflow: hidden;
+            margin-bottom: 25px;
+        }
+
+        .loading-bar-fill {
+            background: var(--cor-ouro);
+            height: 100%;
+            width: 0%;
+            box-shadow: 0 0 12px var(--cor-ouro);
+            transition: width 0.1s linear;
+        }
+
+        /* ═══════════ HEADER DO PORTAL ═══════════ */
+        .topo-portal {
+            background-color: var(--bg-card);
+            border-bottom: 1px solid var(--borda);
+            padding: 15px 20px;
+        }
+
+        .envelope {
+            max-width: 1100px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .marca-portal {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+            color: var(--texto-principal);
+        }
+
+        .escudo {
+            width: 36px;
+            height: 36px;
+            background: var(--bg-portal);
+            border-radius: 8px;
+            padding: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .txt b {
+            display: block;
+            font-size: 16px;
+            letter-spacing: -0.3px;
+        }
+
+        .txt small {
+            display: block;
+            color: var(--texto-mutado);
+            font-size: 11px;
+        }
+
+        .tag-feira {
+            background-color: rgba(246, 177, 0, 0.1);
+            border: 1px solid var(--cor-ouro);
+            color: var(--cor-ouro);
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        /* ═══════════ CONTEÚDO DO QUIZ ═══════════ */
+        .principal {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 40px 20px;
+        }
+
+        .quiz-card {
+            background-color: var(--bg-card);
+            border: 1px solid var(--borda);
+            border-radius: 16px;
+            width: 100%;
+            max-width: 640px;
+            padding: 35px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            position: relative;
+        }
+
+        .progresso-container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 12px;
+            font-size: 14px;
+            color: var(--texto-mutado);
+        }
+
+        .contador-erros {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            color: var(--erro);
+            font-weight: 600;
+        }
+
+        .linha-progresso-bg {
+            background-color: var(--bg-portal);
+            height: 6px;
+            width: 100%;
+            border-radius: 3px;
+            margin: 12px 0 20px;
+            overflow: hidden;
+        }
+
+        .linha-progresso-fill {
+            background-color: var(--cor-ouro);
+            height: 100%;
+            width: 0%;
+            transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .tag-assunto {
+            display: inline-block;
+            background-color: rgba(246, 177, 0, 0.1);
+            border: 1px solid var(--cor-ouro);
+            color: var(--cor-ouro);
+            padding: 3px 10px;
+            border-radius: 10px;
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 14px;
+        }
+
+        .pergunta-texto {
+            font-size: 20px;
+            font-weight: 600;
+            line-height: 1.4;
+            margin-bottom: 30px;
+        }
+
+        .caixa-opcoes {
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+        }
+
+        .btn-opcao {
+            background-color: var(--bg-portal);
+            border: 1px solid var(--borda);
+            color: var(--texto-principal);
+            padding: 16px 20px;
+            border-radius: 10px;
+            text-align: left;
+            font-size: 15px;
+            line-height: 1.4;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            width: 100%;
+        }
+
+        .btn-opcao:hover:not(:disabled) {
+            border-color: var(--cor-ouro);
+            background-color: rgba(246, 177, 0, 0.03);
+            transform: translateY(-2px);
+        }
+
+        .btn-opcao:disabled {
+            cursor: default;
+        }
+
+        .btn-opcao.certa {
+            border-color: var(--sucesso);
+            background-color: rgba(16, 185, 129, 0.1);
+        }
+
+        .btn-opcao.errada {
+            border-color: var(--erro);
+            background-color: rgba(239, 68, 68, 0.1);
+        }
+
+        /* ═══════════ POP-UP DE FEEDBACK (V / X) ═══════════ */
+        .overlay-feedback {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(23, 24, 28, 0.55);
+            backdrop-filter: blur(2px);
+            border-radius: 16px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.2s ease;
+            z-index: 50;
+        }
+
+        .overlay-feedback.mostrar {
+            opacity: 1;
+        }
+
+        .popup-feedback {
+            background-color: var(--bg-card);
+            border: 2px solid var(--borda);
+            border-radius: 18px;
+            padding: 30px 40px;
+            text-align: center;
+            transform: scale(0.7);
+            transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.4);
+        }
+
+        .overlay-feedback.mostrar .popup-feedback {
+            transform: scale(1);
+        }
+
+        .popup-icone {
+            width: 68px;
+            height: 68px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 14px;
+            font-size: 38px;
+            font-weight: 900;
+        }
+
+        .popup-icone.icone-certo {
+            background-color: rgba(16, 185, 129, 0.15);
+            color: var(--sucesso);
+            border: 2px solid var(--sucesso);
+        }
+
+        .popup-icone.icone-errado {
+            background-color: rgba(239, 68, 68, 0.15);
+            color: var(--erro);
+            border: 2px solid var(--erro);
+        }
+
+        .popup-texto {
+            font-size: 17px;
+            font-weight: 700;
+        }
+
+        .popup-texto.texto-certo { color: var(--sucesso); }
+        .popup-texto.texto-errado { color: var(--erro); }
+
+        /* ═══════════ TELA DE RESULTADO ═══════════ */
+        .resultado-tela {
+            display: none;
+            text-align: center;
+        }
+
+        .resultado-categoria {
+            color: var(--cor-ouro);
+            font-size: 13px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        .resultado-titulo {
+            font-size: 28px;
+            font-weight: 800;
+            margin-bottom: 20px;
+            letter-spacing: -0.5px;
+        }
+
+        .placar-container {
+            display: flex;
+            gap: 14px;
+            margin-bottom: 24px;
+        }
+
+        .placar-item {
+            flex: 1;
+            background-color: var(--bg-portal);
+            border: 1px solid var(--borda);
+            border-radius: 12px;
+            padding: 16px 10px;
+        }
+
+        .placar-numero {
+            font-size: 26px;
+            font-weight: 800;
+        }
+
+        .placar-numero.certo-cor { color: var(--sucesso); }
+        .placar-numero.errado-cor { color: var(--erro); }
+
+        .placar-label {
+            font-size: 12px;
+            color: var(--texto-mutado);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-top: 4px;
+        }
+
+        .resultado-corpo {
+            background-color: var(--bg-portal);
+            border: 1px solid var(--borda);
+            padding: 20px;
+            border-radius: 12px;
+            line-height: 1.6;
+            color: var(--texto-mutado);
+            text-align: left;
+            margin-bottom: 30px;
+            font-size: 15px;
+        }
+
+        .btn-reiniciar {
+            background-color: var(--cor-ouro);
+            color: var(--bg-portal);
+            border: none;
+            padding: 14px 28px;
+            border-radius: 8px;
+            font-weight: 700;
+            font-size: 15px;
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .btn-reiniciar:hover {
+            background-color: var(--cor-ouro-hover);
+        }
+
+        .btn-link-externo {
+            display: block;
+            width: fit-content;
+            margin: 14px auto 0;
+            background-color: transparent;
+            color: var(--texto-principal);
+            border: 1px solid var(--borda);
+            padding: 13px 28px;
+            border-radius: 8px;
+            font-weight: 700;
+            font-size: 15px;
+            text-decoration: none;
+            transition: all 0.2s ease;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .btn-link-externo:hover {
+            border-color: var(--cor-ouro);
+            color: var(--cor-ouro);
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ═══════════ ABERTURA TEMÁTICA DE CARREGAMENTO ═══════════ -->
+    <div id="cortina" class="cortina-abertura">
+      <div class="cortina-miolo">
+        <svg class="cortina-marca" viewBox="0 0 64 64" fill="none">
+          <ellipse class="ab-elipse" cx="32" cy="34" rx="27" ry="14.5" transform="rotate(-14 32 34)"
+                   pathLength="100" stroke="#f6b100" stroke-width="5"/>
+          <path class="ab-omega" d="M22 41h7v-3a10.5 10.5 0 1 1 6 0v3h7"
+                pathLength="100" stroke="#ffffff" stroke-width="4.6"
+                stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        <h1 class="cortina-titulo">Feira das <span>Profissões</span></h1>
+        <p class="cortina-sub">Teste seus conhecimentos tech</p>
+
+        <div class="loading-bar-bg">
+            <div class="loading-bar-fill" id="load-fill"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ═══════════ TOPO DO PORTAL ═══════════ -->
+    <header class="topo-portal">
+      <div class="envelope">
+        <a class="marca-portal" href="#">
+          <span class="escudo">
+            <svg viewBox="0 0 64 64" fill="none" style="width:100%;height:100%">
+              <ellipse cx="32" cy="34" rx="27" ry="14.5" transform="rotate(-14 32 34)" stroke="#f6b100" stroke-width="5"/>
+              <path d="M22 41h7v-3a10.5 10.5 0 1 1 6 0v3h7" stroke="#ffffff" stroke-width="4.6" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </span>
+          <span class="txt"><b>Portal Ômega</b><small>Colégio Ômega · Aracaju</small></span>
+        </a>
+        <div class="tag-feira">Edição 2026</div>
+      </div>
+    </header>
+
+    <!-- ═══════════ CONTAINER PRINCIPAL DO QUIZ ═══════════ -->
+    <main class="principal">
+        <div class="quiz-card">
+
+            <!-- Pop-up de Feedback (Certo / Errado) -->
+            <div id="overlay-feedback" class="overlay-feedback">
+                <div class="popup-feedback">
+                    <div id="popup-icone" class="popup-icone"></div>
+                    <div id="popup-texto" class="popup-texto"></div>
+                </div>
+            </div>
+
+            <!-- Tela de Perguntas Ativas -->
+            <div id="quiz-jogo">
+                <div class="progresso-container">
+                    <span id="num-questao">Questão 1 de 10</span>
+                    <span class="contador-erros">✗ Erros: <span id="num-erros">0</span></span>
+                </div>
+                <div class="linha-progresso-bg">
+                    <div class="linha-progresso-fill" id="quiz-progress-bar"></div>
+                </div>
+                <div class="tag-assunto" id="tag-assunto">Assunto</div>
+                <div class="pergunta-texto" id="txt-pergunta">Carregando questionário...</div>
+                <div class="caixa-opcoes" id="caixa-respostas"></div>
+            </div>
+
+            <!-- Tela de Exibição de Resultado Final -->
+            <div id="quiz-resultado" class="resultado-tela">
+                <div class="resultado-categoria">Resultado Final</div>
+                <div class="resultado-titulo" id="res-titulo">Seu Desempenho</div>
+
+                <div class="placar-container">
+                    <div class="placar-item">
+                        <div class="placar-numero certo-cor" id="placar-acertos">0</div>
+                        <div class="placar-label">Acertos</div>
+                    </div>
+                    <div class="placar-item">
+                        <div class="placar-numero errado-cor" id="placar-erros">0</div>
+                        <div class="placar-label">Erros</div>
+                    </div>
+                </div>
+
+                <div class="resultado-corpo" id="res-descricao">Descrição detalhada...</div>
+                <button class="btn-reiniciar" onclick="reiniciarQuiz()">Refazer Teste</button>
+                <a class="btn-link-externo" href="https://idkkkjjj.github.io/Portal-Omega/QUEMSOU" target="_blank" rel="noopener noreferrer">Descubra sua área!</a>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- ═══════════ LÓGICA DO QUIZ & ANIMAÇÕES ═══════════ -->
+    <script>
+        // 1. Controle da Tela de Carregamento (Cortina)
+        const cortina = document.getElementById('cortina');
+        const loadFill = document.getElementById('load-fill');
+        let progressoJanela = 0;
+
+        const intervaloCarregamento = setInterval(() => {
+            progressoJanela += 4;
+            loadFill.style.width = progressoJanela + '%';
+            if (progressoJanela >= 100) {
+                fecharCortina();
+            }
+        }, 30);
+
+        function fecharCortina() {
+            clearInterval(intervaloCarregamento);
+            cortina.classList.add('oculto');
+            setTimeout(() => {
+                cortina.style.display = 'none';
+            }, 500);
+        }
+
+        // 2. Base de Dados das Perguntas (Quiz de Conhecimento)
+        // "correct" é o índice (0 a 3) da alternativa correta dentro de "options"
+        const questions = [
+            {
+                subject: "Front-End",
+                text: "1. Qual é o principal foco do trabalho de um(a) desenvolvedor(a) Front-End?",
+                options: [
+                    "A parte visual e interativa que o usuário vê e usa em um site ou aplicativo",
+                    "O armazenamento e a segurança dos dados em servidores",
+                    "A análise estatística de grandes volumes de informações",
+                    "A configuração de redes e conexões entre computadores"
+                ],
+                correct: 0
+            },
+            {
+                subject: "Back-End",
+                text: "2. O que caracteriza principalmente o trabalho de um(a) desenvolvedor(a) Back-End?",
+                options: [
+                    "Definir as cores e a tipografia usadas no site",
+                    "Criar animações e transições visuais na tela",
+                    "Programar a lógica do servidor, regras de negócio e acesso a bancos de dados",
+                    "Desenhar protótipos de telas no Figma"
+                ],
+                correct: 2
+            },
+            {
+                subject: "Full Stack",
+                text: "3. Um(a) desenvolvedor(a) Full Stack é aquele(a) que:",
+                options: [
+                    "Trabalha apenas com a parte visual das aplicações",
+                    "Trabalha apenas com servidores e bancos de dados",
+                    "Consegue atuar tanto no Front-End quanto no Back-End de um projeto",
+                    "Cuida exclusivamente da análise estatística de dados"
+                ],
+                correct: 2
+            },
+            {
+                subject: "Análise de Dados",
+                text: "4. Qual é o principal objetivo de um(a) Analista/Cientista de Dados?",
+                options: [
+                    "Criar o design responsivo de um aplicativo mobile",
+                    "Extrair padrões e insights a partir de grandes volumes de dados",
+                    "Configurar o roteamento de páginas em um site",
+                    "Escrever os testes visuais de uma interface"
+                ],
+                correct: 1
+            },
+            {
+                subject: "Front-End",
+                text: "5. Quando você acessa um site e vê as imagens, os menus e os botões na tela, esse resultado visual vem principalmente do trabalho de qual área?",
+                options: [
+                    "Front-End",
+                    "Back-End",
+                    "Segurança da Informação",
+                    "Administração de Redes"
+                ],
+                correct: 0
+            },
+            {
+                subject: "Back-End",
+                text: "6. Qual dessas tarefas é uma responsabilidade típica de um(a) desenvolvedor(a) Back-End?",
+                options: [
+                    "Escolher as cores e fontes de um site",
+                    "Fazer o sistema funcionar corretamente por trás das telas, cuidando das regras e dos dados",
+                    "Criar as animações que o usuário vê na tela",
+                    "Montar gráficos para apresentações"
+                ],
+                correct: 1
+            },
+            {
+                subject: "Full Stack",
+                text: "7. Em uma equipe de desenvolvimento, por que um(a) profissional Full Stack costuma ser valorizado(a)?",
+                options: [
+                    "Porque tem uma visão ampla do projeto e pode transitar entre diferentes camadas do sistema",
+                    "Porque só cria os designs das telas",
+                    "Porque trabalha exclusivamente com estatística",
+                    "Porque não precisa entender de programação"
+                ],
+                correct: 0
+            },
+            {
+                subject: "Análise de Dados",
+                text: "8. Qual destas é uma tarefa comum de quem trabalha com Análise de Dados?",
+                options: [
+                    "Desenhar o layout das telas de um aplicativo",
+                    "Organizar e interpretar números para descobrir padrões e ajudar em decisões",
+                    "Cuidar da segurança dos servidores da empresa",
+                    "Programar os botões de um site"
+                ],
+                correct: 1
+            },
+            {
+                subject: "Front-End",
+                text: "9. Se um site funciona e fica bem organizado tanto no computador quanto no celular, isso é resultado de um bom trabalho de qual área?",
+                options: [
+                    "Front-End",
+                    "Análise de Dados",
+                    "Administração de Banco de Dados",
+                    "Suporte Técnico"
+                ],
+                correct: 0
+            },
+            {
+                subject: "Back-End",
+                text: "10. O que é um banco de dados, ferramenta essencial no Back-End?",
+                options: [
+                    "Um sistema organizado para armazenar, gerenciar e recuperar informações",
+                    "Um programa de edição de vídeos",
+                    "Uma linguagem de estilização de páginas",
+                    "Um tipo de gráfico usado em apresentações"
+                ],
+                correct: 0
+            }
+        ];
+
+        let currentQuestionIndex = 0;
+        let acertos = 0;
+        let erros = 0;
+        let travado = false; // evita cliques duplos durante o feedback
+        let opcoesEmbaralhadas = []; // guarda a ordem embaralhada da questão atual
+        let indiceCorretoAtual = -1; // posição da resposta certa após embaralhar
+
+        // Embaralha um array (Fisher-Yates), sem alterar o original
+        function embaralharArray(array) {
+            const copia = [...array];
+            for (let i = copia.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [copia[i], copia[j]] = [copia[j], copia[i]];
+            }
+            return copia;
+        }
+
+        function carregarQuestao() {
+            travado = false;
+            const questaoAtual = questions[currentQuestionIndex];
+
+            document.getElementById('num-questao').innerText = `Questão ${currentQuestionIndex + 1} de ${questions.length}`;
+            document.getElementById('num-erros').innerText = erros;
+            const progressoAtual = Math.round((currentQuestionIndex / questions.length) * 100);
+            document.getElementById('quiz-progress-bar').style.width = `${progressoAtual}%`;
+
+            document.getElementById('tag-assunto').innerText = questaoAtual.subject;
+            document.getElementById('txt-pergunta').innerText = questaoAtual.text;
+
+            // Monta as opções com referência ao índice original e embaralha a ordem
+            const opcoesComIndiceOriginal = questaoAtual.options.map((texto, indiceOriginal) => ({
+                texto,
+                indiceOriginal
+            }));
+            opcoesEmbaralhadas = embaralharArray(opcoesComIndiceOriginal);
+            indiceCorretoAtual = opcoesEmbaralhadas.findIndex(op => op.indiceOriginal === questaoAtual.correct);
+
+            const caixaRespostas = document.getElementById('caixa-respostas');
+            caixaRespostas.innerHTML = '';
+
+            opcoesEmbaralhadas.forEach((opcao, indice) => {
+                const botao = document.createElement('button');
+                botao.className = 'btn-opcao';
+                botao.innerText = opcao.texto;
+                botao.onclick = () => responder(indice, botao);
+                caixaRespostas.appendChild(botao);
+            });
+        }
+
+        function responder(indiceEscolhido, botaoClicado) {
+            if (travado) return;
+            travado = true;
+
+            const acertou = indiceEscolhido === indiceCorretoAtual;
+
+            // Desabilita todos os botões e destaca certo/errado
+            const botoes = document.querySelectorAll('#caixa-respostas .btn-opcao');
+            botoes.forEach((btn, i) => {
+                btn.disabled = true;
+                if (i === indiceCorretoAtual) {
+                    btn.classList.add('certa');
+                } else if (i === indiceEscolhido) {
+                    btn.classList.add('errada');
+                }
+            });
+
+            if (acertou) {
+                acertos++;
+            } else {
+                erros++;
+                document.getElementById('num-erros').innerText = erros;
+            }
+
+            mostrarPopupFeedback(acertou, () => {
+                currentQuestionIndex++;
+                if (currentQuestionIndex < questions.length) {
+                    carregarQuestao();
+                } else {
+                    exibirResultadoFinal();
+                }
+            });
+        }
+
+        function mostrarPopupFeedback(acertou, aoFechar) {
+            const overlay = document.getElementById('overlay-feedback');
+            const icone = document.getElementById('popup-icone');
+            const texto = document.getElementById('popup-texto');
+
+            icone.className = 'popup-icone ' + (acertou ? 'icone-certo' : 'icone-errado');
+            icone.innerText = acertou ? '✓' : '✗';
+
+            texto.className = 'popup-texto ' + (acertou ? 'texto-certo' : 'texto-errado');
+            texto.innerText = acertou ? 'Resposta correta!' : 'Resposta incorreta';
+
+            overlay.classList.add('mostrar');
+
+            setTimeout(() => {
+                overlay.classList.remove('mostrar');
+                setTimeout(aoFechar, 200);
+            }, 1100);
+        }
+
+        function exibirResultadoFinal() {
+            document.getElementById('quiz-progress-bar').style.width = "100%";
+
+            document.getElementById('quiz-jogo').style.display = 'none';
+            document.getElementById('quiz-resultado').style.display = 'block';
+
+            document.getElementById('placar-acertos').innerText = acertos;
+            document.getElementById('placar-erros').innerText = erros;
+
+            let mensagem = '';
+            if (acertos === questions.length) {
+                mensagem = "Nota máxima! Você demonstrou domínio sólido sobre Front-End, Back-End, Full Stack e Análise de Dados. Esses conceitos serão a base para escolher sua trilha na Feira das Profissões.";
+            } else if (acertos >= questions.length * 0.7) {
+                mensagem = "Muito bom! Você já entende bem as diferenças entre Front-End, Back-End, Full Stack e Análise de Dados. Revise os pontos que errou para fixar ainda mais o conteúdo.";
+            } else if (acertos >= questions.length * 0.4) {
+                mensagem = "Você está no caminho certo, mas ainda vale reforçar alguns conceitos. Aproveite os estandes da Feira das Profissões para tirar dúvidas sobre cada área da tecnologia.";
+            } else {
+                mensagem = "Esse é só o começo! Os termos ainda são novos, mas é uma ótima oportunidade para explorar as áreas de tecnologia com calma nos estandes da Feira das Profissões.";
+            }
+
+            document.getElementById('res-titulo').innerText = `Você acertou ${acertos} de ${questions.length}`;
+            document.getElementById('res-descricao').innerText = mensagem;
+        }
+
+        function reiniciarQuiz() {
+            currentQuestionIndex = 0;
+            acertos = 0;
+            erros = 0;
+            document.getElementById('quiz-resultado').style.display = 'none';
+            document.getElementById('quiz-jogo').style.display = 'block';
+            carregarQuestao();
+        }
+
+        carregarQuestao();
+    </script>
+</body>
+</html>
